@@ -1,0 +1,26 @@
+<div class="header-container">
+  <div class="logo-container">
+    <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
+    <a class="logo" routerLink="/feature/dashboard"><img src="../../../../assets/images/logo.jpg" alt="logo"
+        [style]="{width: '110px', height: '70px'}"></a>
+  </div>
+</div>
+
+<div class="header-container">
+  <nb-actions size="small">
+
+    <nb-action class="control-item">
+      <nb-search type="rotate-layout"></nb-search>
+    </nb-action>
+    <nb-action class="control-item" icon="email-outline"></nb-action>
+    <nb-action class="control-item" icon="bell-outline"></nb-action>
+    <nb-action class="user-action">
+      <nb-user [nbContextMenu]="userMenu" [onlyPicture]="userPictureOnly" [name]="loggedInUser?.userFullName"
+        nbContextMenuTag="{{contextMenuTag}}" [title]="loggedInUser?.userType"
+        picture="../../../../assets/images/avatar.png">
+      </nb-user>
+    </nb-action>
+  </nb-actions>
+</div>

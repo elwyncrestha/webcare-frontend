@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  LOCAL_STORAGE_NAME: 'WebCareDev',
+  LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
+  URL: 'http://localhost:8080'
 };
 
 /*
