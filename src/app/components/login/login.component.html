@@ -1,0 +1,32 @@
+<form (ngSubmit)="submit()" [formGroup]="form">
+    <div class="alert alert-danger" *ngIf="message">
+        {{message}}
+    </div>
+    <div class="form-group">
+        <label for="username"><strong>Username</strong></label>
+        <input [ngClass]="{
+                                  'is-invalid': username.invalid && (username.dirty || username.touched),
+                                  'is-valid': !username.invalid && (username.dirty || username.touched)
+                                  }" class="form-control" formControlName="username" fullWidth id="username" nbInput
+            placeholder="Enter username" type="text">
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="invalid-feedback text-left">
+            Username is required!
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password"><strong>Password</strong></label>
+        <input [ngClass]="{
+                                  'is-invalid': password.invalid && (password.dirty || password.touched),
+                                  'is-valid': !password.invalid && (password.dirty || password.touched)
+                                  }" class="form-control" fullWidth id="password" formControlName="password" nbInput
+            placeholder="Password" type="password">
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback text-left">
+            Password is required!
+        </div>
+        <div class="small">
+            <a routerLink="/forgotPassword">Forgot your password?</a>
+        </div>
+    </div>
+
+    <button nbButton status="primary" type="submit" [nbSpinner]="spinner">Login</button>
+</form>
