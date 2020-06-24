@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "webcare-front"
+    }
+  },
+  "defaultProject": "webcare-front",
+  "cli": {
+    "analytics": false
+  }
 }
