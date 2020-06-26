@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
         userStorage.userId = (user.id).toString();
         userStorage.username = user.username;
         userStorage.userFullName = user.name;
+        userStorage.userType = user.userType;
         LocalStorageUtils.setStorage(userStorage);
 
         this.router.navigate(['/feature/dashboard']);

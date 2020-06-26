@@ -1,5 +1,5 @@
 import { BaseEntity } from '../../base/models';
-import { Status } from '../../enums';
+import { Status, UserType } from '../../enums';
 
 export class User extends BaseEntity {
     username?: string;
@@ -7,4 +7,5 @@ export class User extends BaseEntity {
     name?: string;
     email?: string;
     status?: Status;
+    userType?: UserType;
 }

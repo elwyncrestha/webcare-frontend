@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NbMenuItem } from '@nebular/theme';
 import { MENU_ITEMS, MenuTitle } from './feature-menu';
+import { LocalStorageUtils, EnumUtils } from '../@core/utils';
+import { UserType } from '../@core/enums';
 
 @Component({
   selector: 'app-feature',
@@ -26,7 +28,12 @@ export class FeatureComponent implements OnInit {
   private resolveSideBarRoutes(): void {
     this.menu = [];
     this.menuPush([MenuTitle.DASHBOARD]);
-    // TODO: Add Menus based on User Types
+    switch (LocalStorageUtils.getStorage().userType) {
+      case EnumUtils.getEnum(UserType, UserType.SUPER_ADMINISTRATOR):
+      case EnumUtils.getEnum(UserType, UserType.ADMINISTRATOR):
+        this.menuPush([MenuTitle.USER]);
+        break;
+    }
   }
 
   private menuPush(menuTitle: string[]): void {
