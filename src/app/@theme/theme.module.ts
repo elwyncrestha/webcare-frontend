@@ -54,9 +54,11 @@ import {
 import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
-import { DARK_THEME } from './styles/theme.dark';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CheckEmptyPipe } from './pipes/check-empty.pipe';
 
 const NB_MODULES = [
   NbCardModule,
@@ -95,7 +97,7 @@ const NB_MODULES = [
   NbEvaIconsModule,
 ];
 
-const OTHER_MODULES = [FormsModule, ReactiveFormsModule];
+const OTHER_MODULES = [FormsModule, ReactiveFormsModule, NgbModule];
 
 const COMPONENTS = [
   HeaderComponent,
@@ -103,6 +105,8 @@ const COMPONENTS = [
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  SpinnerComponent,
+  PaginationComponent,
 ];
 
 const ENTRY_COMPONENTS = [];
@@ -113,6 +117,7 @@ const PIPES = [
   RoundPipe,
   TimingPipe,
   NumberWithCommasPipe,
+  CheckEmptyPipe,
 ];
 
 const DIRECTIVES = [];

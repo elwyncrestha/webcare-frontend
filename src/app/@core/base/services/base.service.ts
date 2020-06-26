@@ -85,7 +85,7 @@ export abstract class BaseService<T> {
         return this.http.get(req.url, { headers: req.header });
     }
 
-    public getPaginationWithSearchObject(searchObj: any, page: number = 1, size: number = 20): Observable<any> {
+    public getPaginationWithSearchObject(searchObj: any, page: number = 1, size: number = 10): Observable<any> {
         const api = `${this.getApi()}/list?page=${page}&size=${size}`;
         const req = AppUtils.getRequest(api);
 
