@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                <div class=row>
+                    <div class="col-md-6">
+                        <!-- TODO: Implement department filter -->
+                        <!-- <button (click)="isFilterCollapsed = !isFilterCollapsed"
+                            [attr.aria-expanded]="!isFilterCollapsed" nbButton status="primary">
+                            <i class="fa fa-filter"> Filter</i>
+                        </button> -->
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button (click)="add()" class="ml-2" nbButton outline status="success">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div [hidden]="isFilterCollapsed" class="col-md-12" id="searchModel">
+                        <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+                            <div class="d-flex py-3 justify-content-start">
+                                <input class="mr-1" fieldSize="medium" formControlName="name" id="name" nbInput
+                                    placeholder="Enter name" type="text">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="mr-2" nbButton status="info" type="submit"
+                                        size="small">Search</button>
+                                    <button (click)="clearSearch()" class="mr-2" nbButton status="danger" type="button"
+                                        size="small">Clear
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="box-body">
+                    <table class="table table-bordered table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>S.N</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let department of departmentList;let i=index">
+                                <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                                <td>{{department?.name | checkEmpty}}</td>
+                                <td>
+                                    N/A
+                                    <!-- TODO: Implement department edit -->
+                                    <!-- <button (click)="edit(department)" class="ml-2" nbButton outline size="small"
+                                        status="success">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button (click)="delete(department)" class="ml-2" nbButton outline size="small"
+                                        status="danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <app-spinner *ngIf="spinner" class="d-flex justify-content-center">
+                    </app-spinner>
+                    <app-pagination (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable">
+                    </app-pagination>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
