@@ -3,6 +3,7 @@ import { NbMenuItem } from '@nebular/theme';
 export class MenuTitle {
   public static DASHBOARD = 'Dashboard';
   public static USER = 'User';
+  public static DEPARTMENT = 'Department';
 }
 
 export const MENU_ITEMS: Map<string, NbMenuItem> = new Map([
@@ -16,5 +17,10 @@ export const MENU_ITEMS: Map<string, NbMenuItem> = new Map([
     title: MenuTitle.USER,
     icon: 'people-outline',
     link: '/feature/users',
+  }],
+  [MenuTitle.DEPARTMENT, {
+    title: MenuTitle.DEPARTMENT,
+    icon: 'grid-outline',
+    link: '/feature/departments'
   }],
 ]);

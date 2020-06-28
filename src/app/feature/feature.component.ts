@@ -28,6 +28,8 @@ export class FeatureComponent implements OnInit {
   private resolveSideBarRoutes(): void {
     this.menu = [];
     this.menuPush([MenuTitle.DASHBOARD]);
+    this.menuPush([MenuTitle.USER]);
+    this.menuPush([MenuTitle.DEPARTMENT]);
     switch (LocalStorageUtils.getStorage().userType) {
       case EnumUtils.getEnum(UserType, UserType.SUPER_ADMINISTRATOR):
       case EnumUtils.getEnum(UserType, UserType.ADMINISTRATOR):
