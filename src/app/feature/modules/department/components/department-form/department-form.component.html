@@ -9,7 +9,7 @@
     <nb-card-body>
         <form (ngSubmit)="submit()" [formGroup]="form">
             <div class="row">
-                <div class="col-md-6 form-group">
+                <div class="col-md-12 form-group">
                     <label for="name">Name</label>
                     <input [ngClass]="{
                                   'is-invalid': name.invalid && (name.dirty || name.touched),
