@@ -1,0 +1,71 @@
+<nb-card [nbSpinner]="spinner">
+    <nb-card-header>
+        {{action}} User
+        <button (click)="this.nbDialogRef.close('Modal Closed')" class="float-right" nbButton size="tiny"
+            status="danger" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </nb-card-header>
+    <nb-card-body>
+        <form (ngSubmit)="submit()" [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="name">Name</label>
+                    <input [ngClass]="{
+                                  'is-invalid': name.invalid && (name.dirty || name.touched),
+                                  'is-valid': name.valid && (name.dirty || name.touched)
+                                  }" class="form-control" formControlName="name" fullWidth id="name" nbInput
+                        placeholder="Enter name" size="small">
+                    <span class="invalid-feedback" *ngIf="name?.errors?.required">Name is required.</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="email">Email</label>
+                    <input [ngClass]="{
+                                  'is-invalid': email.invalid && (email.dirty || email.touched),
+                                  'is-valid': email.valid && (email.dirty || email.touched)
+                                  }" class="form-control" formControlName="email" fullWidth id="email" nbInput
+                        placeholder="Enter email" size="small">
+                    <span class="invalid-feedback" *ngIf="email.errors?.required">Email address is required.</span>
+                    <span class="invalid-feedback" *ngIf="email.errors?.email">Email address is invalid.</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="userType">User Type</label>
+                    <nb-select [ngClass]="{
+                        'is-invalid': userType.invalid && (userType.dirty || userType.touched),
+                        'is-valid': userType.valid && (userType.dirty || userType.touched)
+                        }" formControlName="userType" fullWidth placeholder="Select User Type">
+                        <nb-option *ngFor="let type of EnumUtils.pairs(UserType)" [value]="type?.key">
+                            {{type?.value}}
+                        </nb-option>
+                    </nb-select>
+                    <span class="invalid-feedback" *ngIf="email.errors?.userType">User type is required.</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="username">Username</label>
+                    <input [ngClass]="{
+                                  'is-invalid': username.invalid && (username.dirty || username.touched),
+                                  'is-valid': username.valid && (username.dirty || username.touched)
+                                  }" class="form-control" formControlName="username" fullWidth id="username" nbInput
+                        placeholder="Enter username" size="small">
+                    <span class="invalid-feedback" *ngIf="username.errors?.required">Username is required.</span>
+                </div>
+                <div *ngIf="action == Action.ADD" class="col-md-6 form-group">
+                    <label for="password">Password</label>
+                    <input [ngClass]="{
+                                  'is-invalid': password.invalid && (password.dirty || password.touched),
+                                  'is-valid': password.valid && (password.dirty || password.touched)
+                                  }" class="form-control" formControlName="password" fullWidth id="password" nbInput
+                        placeholder="Enter password" size="small" type="password">
+                    <span class="invalid-feedback" *ngIf="password.errors?.required">Password is required.</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr />
+                    <button [disabled]="form.invalid" nbButton size="small" status="success" type="submit"><i
+                            class="fas fa-save"></i></button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
