@@ -5,6 +5,7 @@ import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { LocalStorageUtils } from 'src/app/@core/utils';
 import { Router } from '@angular/router';
+import { UserType } from 'src/app/@core/enums';
 
 @Component({
   selector: 'app-header',
@@ -19,15 +20,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentTheme = 'default';
   contextMenuTag = 'user-context-menu';
   private destroy$: Subject<void> = new Subject<void>();
-  loggedInUser: {
+  public loggedInUser: {
     userId: number,
     userFullName: string,
     userType: string,
   };
-  userMenu = [
+  public userMenu = [
     { title: HeaderComponent.PROFILE },
     { title: HeaderComponent.LOGOUT },
   ];
+  private UserType = UserType;
 
   constructor(
     private sidebarService: NbSidebarService,
@@ -43,7 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.loggedInUser = {
       userId: Number(LocalStorageUtils.getStorage().userId),
       userFullName: LocalStorageUtils.getStorage().userFullName,
-      userType: LocalStorageUtils.getStorage().userType,
+      userType: this.UserType[LocalStorageUtils.getStorage().userType],
     };
 
     const { xl } = this.breakpointService.getBreakpointsMap();

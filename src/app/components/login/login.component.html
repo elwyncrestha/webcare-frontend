@@ -28,5 +28,5 @@
         </div>
     </div>
 
-    <button nbButton status="primary" type="submit" [nbSpinner]="spinner">Login</button>
+    <button [disabled]="form.invalid" [nbSpinner]="spinner" nbButton status="primary" type="submit">Login</button>
 </form>
