@@ -6,7 +6,10 @@ import { User, Pageable } from 'src/app/@core/models';
 import { UserService } from 'src/app/@core/services';
 import { ToastService } from 'src/app/@theme/services/toast.service';
 import { Alert, AlertType } from 'src/app/@theme/models/alert';
-import { NbToggleComponent } from '@nebular/theme';
+import { NbToggleComponent, NbDialogService } from '@nebular/theme';
+import { UserFormComponent } from '../user-form/user-form.component';
+import { Action } from 'src/app/@theme/models/action.enum';
+import { DialogUtils } from 'src/app/@core/utils/dialog/dialog.utils';
 
 @Component({
   selector: 'app-user',
@@ -31,7 +34,8 @@ export class UserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private dialogService: NbDialogService,
   ) { }
 
   private static loadData(component: UserComponent) {
@@ -60,7 +64,13 @@ export class UserComponent implements OnInit {
   }
 
   public add(): void {
-    // TODO: Open Add/Edit User Modal
+    const dialogRef = this.dialogService.open(UserFormComponent, {
+      context: {
+        model: new User(),
+        action: Action.ADD
+      }
+    });
+    DialogUtils.resolve(dialogRef, UserComponent.loadData, this);
   }
 
   public edit(user: User): void {
