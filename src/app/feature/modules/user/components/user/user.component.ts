@@ -74,7 +74,13 @@ export class UserComponent implements OnInit {
   }
 
   public edit(user: User): void {
-    // TODO: Open Add/Edit User Modal
+    const dialogRef = this.dialogService.open(UserFormComponent, {
+      context: {
+        model: user,
+        action: Action.UPDATE
+      }
+    });
+    DialogUtils.resolve(dialogRef, UserComponent.loadData, this);
   }
 
   public onSearch(): void {
