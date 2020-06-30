@@ -54,6 +54,7 @@ export class DepartmentFormComponent implements OnInit {
   private buildForm(): void {
     this.form = this.formBuilder.group({
       id: [ObjectUtils.setUndefinedIfNull(this.model.id)],
+      version: [ObjectUtils.setUndefinedIfNull(this.model.version)],
       name: [
         ObjectUtils.setUndefinedIfNull(this.model.name),
         [Validators.required]

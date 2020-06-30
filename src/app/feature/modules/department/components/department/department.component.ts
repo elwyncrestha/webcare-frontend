@@ -10,6 +10,9 @@ import { NbDialogService } from '@nebular/theme';
 import { Action } from 'src/app/@theme/models/action.enum';
 import { DialogUtils } from 'src/app/@core/utils/dialog/dialog.utils';
 import { DepartmentFormComponent } from '../department-form/department-form.component';
+import { AppConstant } from 'src/app/@core/constants';
+import { TwoButtonConfirmComponent } from 'src/app/@theme/components';
+import { DialogResponse, DialogResponseType } from 'src/app/@theme/models/dialog-response';
 
 @Component({
   selector: 'app-department',
@@ -78,11 +81,38 @@ export class DepartmentComponent implements OnInit {
   }
 
   public edit(department: Department): void {
-    // TODO: Open Add/Edit Department Modal
+    const dialogRef = this.dialogService.open(DepartmentFormComponent, {
+      context: {
+        model: department,
+        action: Action.UPDATE
+      }
+    });
+    DialogUtils.resolve(dialogRef, DepartmentComponent.loadData, this);
   }
 
-  public delete(department: Department): void{
-    // TODO: delete Department Model
+  public delete(department: Department): void {
+    const dialogRef = this.dialogService.open(TwoButtonConfirmComponent, {
+      context: {
+        headerText: AppConstant.DEPARTMENT_DELETE_CONFIRMATION,
+        btnOneText: AppConstant.YES,
+        btnTwoText: AppConstant.NO,
+      }
+    });
+    dialogRef.onClose.subscribe((response: DialogResponse) => {
+      if (response) {
+        if (response.type === DialogResponseType.SUCCESS) {
+          this.departmentService.delete(department?.id).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully deleted the department'));
+            DepartmentComponent.loadData(this);
+          }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to delete the department'));
+          });
+        } else if (response.type === DialogResponseType.DISMISS) {
+          console.log(`Modal closed with message: ${response.message}`);
+        }
+      }
+    });
   }
 
   public onSearch(): void {
