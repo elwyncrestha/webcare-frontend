@@ -10,6 +10,9 @@ import { NbToggleComponent, NbDialogService } from '@nebular/theme';
 import { UserFormComponent } from '../user-form/user-form.component';
 import { Action } from 'src/app/@theme/models/action.enum';
 import { DialogUtils } from 'src/app/@core/utils/dialog/dialog.utils';
+import { TwoButtonConfirmComponent } from 'src/app/@theme/components';
+import { AppConstant } from 'src/app/@core/constants';
+import { DialogResponse, DialogResponseType } from 'src/app/@theme/models/dialog-response';
 
 @Component({
   selector: 'app-user',
@@ -81,6 +84,31 @@ export class UserComponent implements OnInit {
       }
     });
     DialogUtils.resolve(dialogRef, UserComponent.loadData, this);
+  }
+
+  public delete(user: User): void {
+    const dialogRef = this.dialogService.open(TwoButtonConfirmComponent, {
+      context: {
+        headerText: AppConstant.USER_DELETE_CONFIRMATION,
+        btnOneText: AppConstant.YES,
+        btnTwoText: AppConstant.NO,
+      }
+    });
+    dialogRef.onClose.subscribe((response: DialogResponse) => {
+      if (response) {
+        if (response.type === DialogResponseType.SUCCESS) {
+          this.userService.delete(user?.id).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully deleted the user'));
+            UserComponent.loadData(this);
+          }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to delete the user'));
+          });
+        } else if (response.type === DialogResponseType.DISMISS) {
+          console.log(`Modal closed with message: ${response.message}`);
+        }
+      }
+    });
   }
 
   public onSearch(): void {
