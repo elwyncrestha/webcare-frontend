@@ -51,16 +51,14 @@
                                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                                 <td>{{department?.name | checkEmpty}}</td>
                                 <td>
-                                    N/A
-                                    <!-- TODO: Implement department edit -->
-                                    <!-- <button (click)="edit(department)" class="ml-2" nbButton outline size="small"
+                                    <button (click)="edit(department)" class="ml-2" nbButton outline size="small"
                                         status="success">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <button (click)="delete(department)" class="ml-2" nbButton outline size="small"
                                         status="danger">
                                         <i class="fa fa-trash"></i>
-                                    </button> -->
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
