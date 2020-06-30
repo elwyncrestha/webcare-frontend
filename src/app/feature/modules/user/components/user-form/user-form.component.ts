@@ -47,10 +47,6 @@ export class UserFormComponent implements OnInit {
     return this.form.get('userType');
   }
 
-  get password() {
-    return this.form.get('password');
-  }
-
   ngOnInit(): void {
     this.buildForm();
   }
@@ -92,10 +88,6 @@ export class UserFormComponent implements OnInit {
       ],
       username: [
         ObjectUtils.setUndefinedIfNull(this.model.username),
-        [Validators.required]
-      ],
-      password: [
-        ObjectUtils.setUndefinedIfNull(this.model.password),
         [Validators.required]
       ]
     });
