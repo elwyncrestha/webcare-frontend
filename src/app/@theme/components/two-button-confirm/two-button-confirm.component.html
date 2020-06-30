@@ -1,0 +1,15 @@
+<nb-card>
+    <nb-card-header>{{ headerText }}</nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-6 text-right">
+                <button (click)="btnAction(true)" nbButton size="small"
+                    status="danger">{{btnOneText | titlecase}}</button>
+            </div>
+            <div class="col-md-6 text-left">
+                <button (click)="btnAction(false)" nbButton size="small"
+                    status="info">{{btnTwoText | titlecase}}</button>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
