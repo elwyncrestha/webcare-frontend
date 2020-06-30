@@ -28,6 +28,12 @@ export class UserService extends BaseService<User> {
         return this.http.get(req.url, { headers: req.header });
     }
 
+    public changePassword(obj: any): Observable<any> {
+        const req = AppUtils.getRequest(`${this.getApi()}/changePassword`);
+
+        return this.http.post(req.url, obj, { headers: req.header });
+    }
+
     protected getApi(): string {
         return UserService.API;
     }

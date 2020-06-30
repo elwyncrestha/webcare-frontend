@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbMediaBreakpointsService, NbSidebarService, NbThemeService, NbMenuService } from '@nebular/theme';
+import { NbMediaBreakpointsService, NbSidebarService, NbThemeService, NbMenuService, NbDialogService } from '@nebular/theme';
 
 import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { LocalStorageUtils } from 'src/app/@core/utils';
 import { Router } from '@angular/router';
 import { UserType } from 'src/app/@core/enums';
+import { ChangePasswordComponent } from 'src/app/components';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ import { UserType } from 'src/app/@core/enums';
 export class HeaderComponent implements OnInit, OnDestroy {
   static LOGOUT = 'Log out';
   static PROFILE = 'Profile';
+  static CHANGE_PASSWORD = 'Change Password';
 
   userPictureOnly = false;
   currentTheme = 'default';
@@ -27,6 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   };
   public userMenu = [
     { title: HeaderComponent.PROFILE },
+    { title: HeaderComponent.CHANGE_PASSWORD },
     { title: HeaderComponent.LOGOUT },
   ];
   private UserType = UserType;
@@ -36,7 +39,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private themeService: NbThemeService,
     private breakpointService: NbMediaBreakpointsService,
     private menuService: NbMenuService,
-    private router: Router
+    private router: Router,
+    private dialogService: NbDialogService,
   ) {
   }
 
@@ -67,14 +71,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
       filter(({ tag }) => tag === this.contextMenuTag),
       map(({ item: { title } }) => title),
       filter((title) =>
-        title === HeaderComponent.LOGOUT ||
-        title === HeaderComponent.PROFILE
+        title === HeaderComponent.LOGOUT
+        || title === HeaderComponent.PROFILE
+        || title === HeaderComponent.CHANGE_PASSWORD
       ),
     ).subscribe((value) => {
       if (value === HeaderComponent.LOGOUT) {
         this.logout();
       } else if (value === HeaderComponent.PROFILE) {
         this.router.navigate(['/pages/profile']);
+      } else if (value === HeaderComponent.CHANGE_PASSWORD) {
+        this.dialogService.open(ChangePasswordComponent);
       }
     });
 
