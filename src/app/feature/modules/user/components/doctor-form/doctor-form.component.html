@@ -1,0 +1,44 @@
+<nb-card [nbSpinner]="spinner">
+    <nb-card-header>
+        {{action}} Doctor
+        <button (click)="this.nbDialogRef.close('Modal Closed')" class="float-right" nbButton size="tiny"
+            status="danger" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </nb-card-header>
+    <nb-card-body>
+        <form (ngSubmit)="submit()" [formGroup]="form">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label for="department">Department</label>
+                    <nb-select [ngClass]="{
+                                  'is-invalid': department.invalid && (department.dirty || department.touched),
+                                  'is-valid': department.valid && (department.dirty || department.touched)
+                                  }" formControlName="department" fullWidth id="department"
+                        placeholder="Enter department">
+                        <nb-option *ngFor="let department of departmentList" [value]="department?.id">
+                            {{ department?.name }}</nb-option>
+                    </nb-select>
+                    <span class="invalid-feedback" *ngIf="department.errors?.required">Department is required.</span>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="specializationField">Specialization Field</label>
+                    <input [ngClass]="{
+                                  'is-invalid': specializationField.invalid && (specializationField.dirty || specializationField.touched),
+                                  'is-valid': specializationField.valid && (specializationField.dirty || specializationField.touched)
+                                  }" class="form-control" formControlName="specializationField" fullWidth
+                        id="specializationField" nbInput placeholder="Enter specialization field" size="small">
+                    <span class="invalid-feedback" *ngIf="specializationField?.errors?.required">Specialization field is
+                        required.</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr />
+                    <button [disabled]="form.invalid" nbButton size="small" status="success" type="submit"><i
+                            class="fas fa-save"></i></button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

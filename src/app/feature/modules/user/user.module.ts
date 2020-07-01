@@ -2,14 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
-import { UserComponent } from './components/user/user.component';
 import { ThemeModule } from 'src/app/@theme/theme.module';
-import { UserFormComponent } from './components/user-form/user-form.component';
 import { NbDialogModule } from '@nebular/theme';
+import { UserComponent, UserFormComponent, DoctorComponent, PatientComponent } from './components';
+import { DoctorFormComponent } from './components/doctor-form/doctor-form.component';
+
 
 
 @NgModule({
-  declarations: [UserComponent, UserFormComponent],
+  declarations: [UserComponent, UserFormComponent, DoctorComponent, PatientComponent, DoctorFormComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
