@@ -28,7 +28,7 @@
                     <span class="invalid-feedback" *ngIf="email.errors?.required">Email address is required.</span>
                     <span class="invalid-feedback" *ngIf="email.errors?.email">Email address is invalid.</span>
                 </div>
-                <div class="col-md-6 form-group">
+                <div *ngIf="action === Action.ADD" class="col-md-6 form-group">
                     <label for="userType">User Type</label>
                     <nb-select [ngClass]="{
                         'is-invalid': userType.invalid && (userType.dirty || userType.touched),
@@ -71,7 +71,7 @@
                 <div class="col-md-6 form-group">
                     <label for="gender">Gender</label>
                     <br />
-                    <nb-radio-group formControlName="gender" id="gender">
+                    <nb-radio-group class="d-flex" formControlName="gender" id="gender">
                         <nb-radio *ngFor="let gender of genderPairs" [value]="gender?.key">
                             {{ gender?.value }}</nb-radio>
                     </nb-radio-group>
