@@ -1,0 +1,67 @@
+<nb-card [nbSpinner]="spinner">
+    <nb-card-header>
+        {{action}} Inventory
+        <button (click)="this.nbDialogRef.close('Modal Closed')" class="float-right" nbButton size="tiny"
+            status="danger" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </nb-card-header>
+    <nb-card-body>
+        <form (ngSubmit)="submit()" [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="name">Name</label>
+                    <input [ngClass]="{
+                                  'is-invalid': name.invalid && (name.dirty || name.touched),
+                                  'is-valid': name.valid && (name.dirty || name.touched)
+                                  }" class="form-control" formControlName="name" fullWidth id="name" nbInput
+                        placeholder="Enter item name" size="small">
+                    <span class="invalid-feedback" *ngIf="name?.errors?.required">Name is required.</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="price">Price</label>
+                    <input [ngClass]="{
+                                  'is-invalid': price.invalid && (price.dirty || price.touched),
+                                  'is-valid': price.valid && (price.dirty || price.touched)
+                                  }" class="form-control" formControlName="price" fullWidth id="price" nbInput type="number" 
+                        placeholder="Rs. 0.0" size="small">
+                    <span class="invalid-feedback" *ngIf="price.errors?.required">Price is required</span>
+                    <span class="invalid-feedback" *ngIf="price.errors?.number">Invalid Price.</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="quantity">Quantity</label>
+                    <input [ngClass]="{
+                                  'is-invalid': price.invalid && (quantity.dirty || quantity.touched),
+                                  'is-valid': quantity.valid && (quantity.dirty || quantity.touched)
+                                  }" class="form-control" formControlName="quantity" fullWidth id="quantity" nbInput type="number" 
+                        placeholder="Eg:- 1" size="small">
+                    <span class="invalid-feedback" *ngIf="quantity.errors?.required">Quantity is required</span>
+                    <span class="invalid-feedback" *ngIf="quantity.errors?.number">Invalid quantity.</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="totalPrice">Total Price</label>
+                    <input class="form-control" formControlName="totalPrice" fullWidth id="totalPrice" nbInput 
+                        placeholder="Rs. 0.0" size="small" disabled>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="purchaseDate">Purchase Date</label>
+                    <input [ngClass]="{
+                        'is-invalid': purchaseDate.invalid && (purchaseDate.dirty || purchaseDate.touched),
+                        'is-valid': purchaseDate.valid && (purchaseDate.dirty || purchaseDate.touched)
+                        }" [nbDatepicker]="purchaseDatePicker" class="form-control" formControlName="purchaseDate"
+                         fullWidth id="purchaseDate" nbInput placeholder="Purchase Date"
+                    size="small"><nb-datepicker #purchaseDatePicker [max]="todayDate"></nb-datepicker>
+                    <span class="invalid-feedback" *ngIf="purchaseDate.errors?.required">Date is required</span>
+                    <span class="invalid-feedback" *ngIf="purchaseDate.errors?.pastDate">Invalid date</span>
+                </div> 
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr />
+                    <button [disabled]="form.invalid" nbButton size="small" status="success" type="submit"><i
+                            class="fas fa-save"></i></button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
