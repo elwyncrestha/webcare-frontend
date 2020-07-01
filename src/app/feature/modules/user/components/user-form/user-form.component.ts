@@ -4,7 +4,7 @@ import { Action } from 'src/app/@theme/models/action.enum';
 import { NbDialogRef } from '@nebular/theme';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ObjectUtils, EnumUtils } from 'src/app/@core/utils';
-import { UserType } from 'src/app/@core/enums';
+import { UserType, Gender } from 'src/app/@core/enums';
 import { UserService } from 'src/app/@core/services';
 import { Alert, AlertType } from 'src/app/@theme/models/alert';
 import { ToastService } from 'src/app/@theme/services/toast.service';
@@ -23,6 +23,7 @@ export class UserFormComponent implements OnInit {
   public UserType = UserType;
   public EnumUtils = EnumUtils;
   public Action = Action;
+  public genderPairs = EnumUtils.pairs(Gender);
 
   constructor(
     public nbDialogRef: NbDialogRef<UserFormComponent>,
@@ -45,6 +46,18 @@ export class UserFormComponent implements OnInit {
 
   get userType() {
     return this.form.get('userType');
+  }
+
+  get address() {
+    return this.form.get('address');
+  }
+
+  get contactNumber() {
+    return this.form.get('contactNumber');
+  }
+
+  get gender() {
+    return this.form.get('gender');
   }
 
   ngOnInit(): void {
@@ -89,7 +102,19 @@ export class UserFormComponent implements OnInit {
       username: [
         ObjectUtils.setUndefinedIfNull(this.model.username),
         [Validators.required]
-      ]
+      ],
+      address: [
+        ObjectUtils.setUndefinedIfNull(this.model.address),
+        [Validators.required]
+      ],
+      contactNumber: [
+        ObjectUtils.setUndefinedIfNull(this.model.contactNumber),
+        [Validators.required]
+      ],
+      gender: [
+        ObjectUtils.setUndefinedIfNull(this.model.gender),
+        [Validators.required]
+      ],
     });
   }
 

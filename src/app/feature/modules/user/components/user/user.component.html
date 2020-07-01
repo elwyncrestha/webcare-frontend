@@ -50,6 +50,9 @@
                                 <th>User Type</th>
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>Address</th>
+                                <th>Contact Number</th>
+                                <th>Gender</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -61,6 +64,9 @@
                                 <td>{{UserType[user?.userType] | checkEmpty}}</td>
                                 <td>{{user?.username | checkEmpty}}</td>
                                 <td>{{user?.email | checkEmpty}}</td>
+                                <td>{{user?.address | checkEmpty}}</td>
+                                <td>{{user?.contactNumber | checkEmpty}}</td>
+                                <td>{{user?.gender | titlecase | checkEmpty}}</td>
                                 <td>
                                     <span *ngIf="UserType[user?.userType] === UserType.SUPER_ADMINISTRATOR">N/A</span>
                                     <nb-toggle #userStatus (checkedChange)="statusChange(user, userStatus)"
