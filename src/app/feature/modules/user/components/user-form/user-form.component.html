@@ -49,6 +49,34 @@
                         placeholder="Enter username" size="small">
                     <span class="invalid-feedback" *ngIf="username.errors?.required">Username is required.</span>
                 </div>
+                <div class="col-md-6 form-group">
+                    <label for="address">Address</label>
+                    <input [ngClass]="{
+                                  'is-invalid': address.invalid && (address.dirty || address.touched),
+                                  'is-valid': address.valid && (address.dirty || address.touched)
+                                  }" class="form-control" formControlName="address" fullWidth id="address" nbInput
+                        placeholder="Enter address" size="small">
+                    <span class="invalid-feedback" *ngIf="address.errors?.required">Address is required.</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="contactNumber">Contact Number</label>
+                    <input [ngClass]="{
+                                  'is-invalid': contactNumber.invalid && (contactNumber.dirty || contactNumber.touched),
+                                  'is-valid': contactNumber.valid && (contactNumber.dirty || contactNumber.touched)
+                                  }" class="form-control" formControlName="contactNumber" fullWidth id="contactNumber"
+                        nbInput placeholder="Enter contact number" size="small">
+                    <span class="invalid-feedback" *ngIf="contactNumber.errors?.required">Contact Number is
+                        required.</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="gender">Gender</label>
+                    <br />
+                    <nb-radio-group formControlName="gender" id="gender">
+                        <nb-radio *ngFor="let gender of genderPairs" [value]="gender?.key">
+                            {{ gender?.value }}</nb-radio>
+                    </nb-radio-group>
+                    <span class="invalid-feedback" *ngIf="gender.errors?.required">Gender is required.</span>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
