@@ -16,6 +16,10 @@
                             <div class="d-flex py-3 justify-content-start">
                                 <input class="mr-1" fieldSize="medium" formControlName="name" id="name" nbInput
                                     placeholder="Enter name" type="text">
+                                <nb-select formControlName="department" id="department" placeholder="Select department">
+                                    <nb-option *ngFor="let department of departmentList" [value]="department?.id">
+                                        {{ department?.name }}</nb-option>
+                                </nb-select>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">

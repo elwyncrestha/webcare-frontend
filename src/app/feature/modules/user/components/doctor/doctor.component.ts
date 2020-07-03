@@ -11,6 +11,8 @@ import { Alert, AlertType } from 'src/app/@theme/models/alert';
 import { DoctorFormComponent } from '../doctor-form/doctor-form.component';
 import { Action } from 'src/app/@theme/models/action.enum';
 import { DialogUtils } from 'src/app/@core/utils/dialog/dialog.utils';
+import { DepartmentService } from 'src/app/@core/services/department/department.service';
+import { Department } from 'src/app/@core/models/department/department.model';
 
 @Component({
   selector: 'app-doctor',
@@ -26,8 +28,10 @@ export class DoctorComponent implements OnInit {
   public spinner = false;
   public UserType = UserType;
   public Status = Status;
+  public departmentList: Department[] = [];
   private search = {
     'user.name': undefined,
+    'department.id': undefined,
   };
 
   constructor(
@@ -36,6 +40,7 @@ export class DoctorComponent implements OnInit {
     private toastService: ToastService,
     private dialogService: NbDialogService,
     private doctorService: DoctorService,
+    private departmentService: DepartmentService,
   ) { }
 
   private static loadData(component: DoctorComponent) {
@@ -54,12 +59,19 @@ export class DoctorComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     DoctorComponent.loadData(this);
+    this.departmentService.getAll().subscribe((response: any) => {
+      this.departmentList = response.detail;
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to departments!'));
+    });
   }
 
   private buildForm(): void {
     this.filterForm = this.formBuilder.group({
       name: [undefined],
       userType: [EnumUtils.getEnum(UserType, UserType.DOCTOR)],
+      department: [undefined],
     });
   }
 
@@ -75,6 +87,7 @@ export class DoctorComponent implements OnInit {
 
   public onSearch(): void {
     this.search['user.name'] = ObjectUtils.setUndefinedIfNull(this.filterForm.get('name').value);
+    this.search['department.id'] = ObjectUtils.setUndefinedIfNull(String(this.filterForm.get('department').value));
     DoctorComponent.loadData(this);
   }
 
