@@ -74,14 +74,18 @@
                                         [checked]="Status[user?.status] === Status.ACTIVE"></nb-toggle>
                                 </td>
                                 <td>
-                                    <button (click)="edit(user)" class="ml-2" nbButton outline size="small"
-                                        status="info">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button (click)="delete(user)" class="ml-2" nbButton outline size="small"
-                                        status="danger">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
+                                    <ng-container
+                                        *ngIf="UserType[user?.userType] !== UserType.SUPER_ADMINISTRATOR; else actionUnavailable">
+                                        <button (click)="edit(user)" class="ml-2" nbButton outline size="small"
+                                            status="info">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <button (click)="delete(user)" class="ml-2" nbButton outline size="small"
+                                            status="danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </ng-container>
+                                    <ng-template #actionUnavailable>N/A</ng-template>
                                 </td>
                             </tr>
                         </tbody>
