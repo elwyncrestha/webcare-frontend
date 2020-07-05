@@ -4,17 +4,16 @@ import { Appointment } from '../../models/appointment/appointment.model';
 import { BaseService } from '../../base/services';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class AppointmentService extends BaseService<Appointment>{
-
+export class AppointmentService extends BaseService<Appointment> {
   static API = 'v1/appointment';
 
-    constructor(readonly http: HttpClient) {
-        super(http)
-    }
+  constructor(readonly http: HttpClient) {
+    super(http);
+  }
 
-    protected getApi(): string {
-        return AppointmentService.API;
-    }
+  protected getApi(): string {
+    return AppointmentService.API;
+  }
 }
