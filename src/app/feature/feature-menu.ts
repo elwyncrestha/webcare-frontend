@@ -8,6 +8,7 @@ export class MenuTitle {
   public static USER_PATIENT = 'Patient';
   public static DEPARTMENT = 'Department';
   public static INVENTORY = 'Inventory';
+  public static APPOINTMeNT = 'Appointment';
 }
 
 export const MENU_ITEMS: Map<string, NbMenuItem> = new Map([
@@ -49,4 +50,9 @@ export const MENU_ITEMS: Map<string, NbMenuItem> = new Map([
     icon: 'shopping-cart-outline',
     link: '/feature/inventory'
   }],
+  [MenuTitle.APPOINTMeNT, {
+    title: MenuTitle.APPOINTMeNT,
+    icon: 'person-outline',
+    link: '/feature/appointment'
+  }]
 ]);

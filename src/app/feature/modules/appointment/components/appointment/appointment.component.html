@@ -1,0 +1,78 @@
+<nb-card>
+    <nb-card-header>
+        Appointment
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" formControlName="name" fullWidth id="name" nbInput
+                        placeholder="Enter name" size="small">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="name">Address</label>
+                    <input class="form-control" formControlName="address" fullWidth id="address" nbInput
+                        placeholder="Enter address" size="small">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="name">Email</label>
+                    <input class="form-control" fullWidth formControlName="email" id="address" nbInput
+                        placeholder="Enter email address" size="small" type="email">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="gender">Gender</label>
+                    <br />
+                    <nb-radio-group class="d-flex" id="gender">
+                        <nb-radio>
+                            Male</nb-radio>
+                            <nb-radio>
+                                Female</nb-radio>
+                                <nb-radio>
+                                    Other</nb-radio>
+                    </nb-radio-group>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="name">Age</label>
+                    <input class="form-control" formControlName="age"  fullWidth id="age" nbInput
+                        placeholder="Enter your age" size="small" type="number">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="department">Select Department</label>
+                    <nb-select fullWidth id="department"
+                        placeholder="Enter department">
+                        <nb-option>Department</nb-option>
+                    </nb-select>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="doctor">Select Doctor</label>
+                    <nb-select fullWidth id="doctor"
+                        placeholder="Enter department">
+                        <nb-option>Doctor</nb-option>
+                    </nb-select>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="appointmentDate">Appointment Date</label>
+                    <input [nbDatepicker]="appDate" class="form-control" formControlName="appointmentDate"
+                         fullWidth id="appointmentDate" nbInput placeholder="Appointment Date"
+                    size="small"><nb-datepicker #appDate></nb-datepicker>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="preferredTime">Preferred Time</label>
+                    <nb-select fullWidth id="preferredTime" formControlName="preferredTime"
+                        placeholder="Enter department">
+                        <nb-option>8 AM</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr />
+                    <button nbButton size="small" status="success" type="submit">
+                        Create Appointment
+                    </button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
