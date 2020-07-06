@@ -10,6 +10,9 @@ import { Alert, AlertType } from 'src/app/@theme/models/alert';
 import { Action } from 'src/app/@theme/models/action.enum';
 import { DialogUtils } from 'src/app/@core/utils/dialog/dialog.utils';
 import { InventoryFormComponent } from '../inventory-form/inventory-form.component';
+import { TwoButtonConfirmComponent } from 'src/app/@theme/components';
+import { AppConstant } from 'src/app/@core/constants';
+import { DialogResponse, DialogResponseType } from 'src/app/@theme/models/dialog-response';
 
 @Component({
   selector: 'app-inventory',
@@ -62,6 +65,41 @@ export class InventoryComponent implements OnInit {
       }
     });
     DialogUtils.resolve(dialogRef, InventoryComponent.loadData, this);
+  }
+
+  public edit(inventory: Inventory): void {
+    const dialogRef = this.dialogService.open(InventoryFormComponent, {
+      context: {
+        model: inventory,
+        action: Action.UPDATE
+      }
+    });
+    DialogUtils.resolve(dialogRef, InventoryComponent.loadData, this);
+  }
+
+  public delete(inventory: Inventory): void {
+    const dialogRef = this.dialogService.open(TwoButtonConfirmComponent, {
+      context: {
+        headerText: AppConstant.INVENTORY_DELETE_CONFIRMATION,
+        btnOneText: AppConstant.YES,
+        btnTwoText: AppConstant.NO,
+      }
+    });
+    dialogRef.onClose.subscribe((response: DialogResponse) => {
+      if (response) {
+        if (response.type === DialogResponseType.SUCCESS) {
+          this.inventoryService.delete(inventory?.id).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Inventory deleted successfully'));
+            InventoryComponent.loadData(this);
+          }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to delete inventory'));
+          });
+        } else if (response.type === DialogResponseType.DISMISS) {
+          console.log(`Modal closed with message: ${response.message}`);
+        }
+      }
+    });
   }
 
   public changePage(page: number) {
