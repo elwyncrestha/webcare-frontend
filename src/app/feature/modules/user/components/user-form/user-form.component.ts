@@ -25,7 +25,7 @@ export class UserFormComponent implements OnInit {
   public EnumUtils = EnumUtils;
   public Action = Action;
   public genderPairs = EnumUtils.pairs(Gender);
-  public appConstant = AppConstant;
+
   constructor(
     public nbDialogRef: NbDialogRef<UserFormComponent>,
     private formBuilder: FormBuilder,
@@ -110,7 +110,7 @@ export class UserFormComponent implements OnInit {
       ],
       contactNumber: [
         ObjectUtils.setUndefinedIfNull(this.model.contactNumber),
-        [Validators.required, Validators.pattern(this.appConstant.PATTERN)]
+        [Validators.required, Validators.pattern(AppConstant.CONTACT_NUMBER_REGEX)]
       ],
       gender: [
         ObjectUtils.setUndefinedIfNull(this.model.gender),
