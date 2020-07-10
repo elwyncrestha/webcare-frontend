@@ -15,6 +15,12 @@ export abstract class BaseService<T> {
     return this.http.post(req.url, obj, { headers: req.header });
   }
 
+  public saveUnauthenticated(obj: T): Observable<any> {
+    const req = AppUtils.getUnAuthenticatedRequest(this.getApi());
+
+    return this.http.post(req.url, obj, { headers: req.header });
+  }
+
   public saveAny(obj: any): Observable<any> {
     const req = AppUtils.getRequest(this.getApi());
 
@@ -59,6 +65,18 @@ export abstract class BaseService<T> {
     const req = AppUtils.getRequest(api);
 
     return this.http.delete(req.url, { headers: req.header });
+  }
+
+  public getById(id: number): Observable<any> {
+    const api = `${this.getApi()}/${id}`;
+    const req = AppUtils.getRequest(api);
+    return this.http.get(req.url, { headers: req.header });
+  }
+
+  public getByIdUnauthenticated(id: number): Observable<any> {
+    const api = `${this.getApi()}/${id}`;
+    const req = AppUtils.getUnAuthenticatedRequest(api);
+    return this.http.get(req.url, { headers: req.header });
   }
 
   public getAll(): Observable<any> {

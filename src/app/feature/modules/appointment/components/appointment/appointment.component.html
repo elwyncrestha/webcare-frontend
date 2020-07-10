@@ -1,75 +1,141 @@
-<nb-card>
+<nb-card [nbSpinner]="spinner">
     <nb-card-header>
         Appointment
     </nb-card-header>
     <nb-card-body>
-        <form [formGroup]="form" class="text-left">
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label for="name">Name</label>
-                    <input class="form-control" formControlName="name" fullWidth id="name" nbInput
-                        placeholder="Enter name" size="small">
+        <form (ngSubmit)="submit()" [formGroup]="form" class="text-left">
+            <div *ngIf="!verified" class="row">
+                <div class="col-md-10 form-group">
+                    <label for="id">Patient ID</label>
+                    <input class="form-control" formControlName="id" fullWidth id="id" nbInput
+                        placeholder="Enter patient ID" size="small">
+                    <small class="form-text text-muted">Search using an existing patient ID if you have any, otherwise
+                        create
+                        new.</small>
                 </div>
-                <div class="col-md-6 form-group">
-                    <label for="address">Address</label>
-                    <input class="form-control" formControlName="address" fullWidth id="address" nbInput
-                        placeholder="Enter address" size="small">
-                </div>
-                <div class="col-md-6 form-group">
-                    <label for="email">Email</label>
-                    <input class="form-control" fullWidth formControlName="email" id="email" nbInput
-                        placeholder="Enter email address" size="small" type="email">
-                </div>
-                <div class="col-md-6 form-group">
-                    <label for="gender">Gender</label>
-                    <br />
-                    <nb-radio-group class="d-flex" id="gender">
-                        <nb-radio>
-                            Male</nb-radio>
-                        <nb-radio>
-                            Female</nb-radio>
-                        <nb-radio>
-                            Other</nb-radio>
-                    </nb-radio-group>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label for="age">Age</label>
-                    <input class="form-control" formControlName="age" fullWidth id="age" nbInput
-                        placeholder="Enter your age" size="small" type="number">
-                </div>
-                <div class="col-md-6 form-group">
-                    <label for="department">Select Department</label>
-                    <nb-select formControlName="department" fullWidth id="department" placeholder="Enter department">
-                        <nb-option *ngFor="let department of departmentList" [value]="department">{{ department?.name }}
-                        </nb-option>
-                    </nb-select>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label for="doctor">Select Doctor</label>
-                    <nb-select formControlName="doctor" fullWidth id="doctor" placeholder="Enter doctor">
-                        <nb-option *ngFor="let doctor of doctorList" [value]="doctor">{{ doctor?.user?.name }}
-                        </nb-option>
-                    </nb-select>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label for="appointmentDate">Appointment Date</label>
-                    <input [nbDatepicker]="appointmentDatePicker" class="form-control" formControlName="appointmentDate"
-                        fullWidth id="appointmentDate" nbInput placeholder="Appointment Date" size="small">
-                    <nb-datepicker #appointmentDatePicker></nb-datepicker>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label for="appointmentTime">Appointment Time</label>
-                    <input class="form-control" formControlName="appointmentTime" type="time">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <hr />
-                    <button nbButton size="small" status="success" type="submit">
-                        Create Appointment
+                <div class="col-md-2 form-group">
+                    <button (click)="searchByPatientId()" nbButton fullWidth size="small" status="info" type="button">
+                        Search&nbsp;&nbsp;<i class="fas fa-search"></i>
+                    </button>
+                    <button (click)="appointNewPatient()" nbButton fullWidth size="small" status="danger" type="button">
+                        Create New&nbsp;&nbsp;<i class="fas fa-plus"></i>
                     </button>
                 </div>
             </div>
+            <ng-container *ngIf="verified">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="name">Name</label>
+                        <input [ngClass]="{
+                            'is-invalid': name.invalid && (name.dirty || name.touched),
+                            'is-valid': name.valid && (name.dirty || name.touched)
+                            }" class="form-control" formControlName="name" fullWidth id="name" nbInput
+                            placeholder="Enter name" size="small">
+                        <span class="invalid-feedback" *ngIf="name.errors?.required">Name is required.</span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="address">Address</label>
+                        <input [ngClass]="{
+                            'is-invalid': address.invalid && (address.dirty || address.touched),
+                            'is-valid': address.valid && (address.dirty || address.touched)
+                            }" class="form-control" formControlName="address" fullWidth id="address" nbInput
+                            placeholder="Enter address" size="small">
+                        <span class="invalid-feedback" *ngIf="address.errors?.required">Address is required.</span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="contactNumber">Contact Number</label>
+                        <input [ngClass]="{
+                            'is-invalid': contactNumber.invalid && (contactNumber.dirty || contactNumber.touched),
+                            'is-valid': contactNumber.valid && (contactNumber.dirty || contactNumber.touched)
+                            }" class="form-control" fullWidth formControlName="contactNumber" id="contactNumber"
+                            nbInput placeholder="Enter contact number" size="small" type="text">
+                        <span class="invalid-feedback" *ngIf="contactNumber.errors?.required">Contact number is
+                            required.</span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="email">Email</label>
+                        <input [ngClass]="{
+                            'is-invalid': email.invalid && (email.dirty || email.touched),
+                            'is-valid': email.valid && (email.dirty || email.touched)
+                            }" class="form-control" fullWidth formControlName="email" id="email" nbInput
+                            placeholder="Enter email address" size="small" type="email">
+                        <span class="invalid-feedback" *ngIf="email.errors?.required">Email address is required.</span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="gender">Gender</label>
+                        <br />
+                        <nb-radio-group class="d-flex" formControlName="gender" id="gender"
+                            [disabled]="this.model?.patient?.id">
+                            <nb-radio *ngFor="let gender of genderPairs" [value]="gender?.key">
+                                {{ gender?.value }}</nb-radio>
+                        </nb-radio-group>
+                        <span class="invalid-feedback" *ngIf="gender.errors?.required">Gender is required.</span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="age">Age</label>
+                        <input [ngClass]="{
+                            'is-invalid': age.invalid && (age.dirty || age.touched),
+                            'is-valid': age.valid && (age.dirty || age.touched)
+                            }" class="form-control" formControlName="age" fullWidth id="age" nbInput
+                            placeholder="Enter your age" size="small" type="number">
+                        <span class="invalid-feedback" *ngIf="age.errors?.required">Age is required.</span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="department">Select Department</label>
+                        <nb-select [ngClass]="{
+                            'is-invalid': department.invalid && (department.dirty || department.touched),
+                            'is-valid': department.valid && (department.dirty || department.touched)
+                            }" formControlName="department" fullWidth id="department" placeholder="Enter department">
+                            <nb-option *ngFor="let department of departmentList" [value]="department">
+                                {{ department?.name }}
+                            </nb-option>
+                        </nb-select>
+                        <span class="invalid-feedback" *ngIf="department.errors?.required">Department is
+                            required.</span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="doctor">Select Doctor</label>
+                        <nb-select [ngClass]="{
+                            'is-invalid': doctor.invalid && (doctor.dirty || doctor.touched),
+                            'is-valid': doctor.valid && (doctor.dirty || doctor.touched)
+                            }" formControlName="doctor" fullWidth id="doctor" placeholder="Enter doctor">
+                            <nb-option *ngFor="let doctor of doctorList" [value]="doctor">{{ doctor?.user?.name }}
+                            </nb-option>
+                        </nb-select>
+                        <span class="invalid-feedback" *ngIf="doctor.errors?.required">Doctor is
+                            required.</span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="appointmentDate">Appointment Date</label>
+                        <input [ngClass]="{
+                            'is-invalid': appointmentDate.invalid && (appointmentDate.dirty || appointmentDate.touched),
+                            'is-valid': appointmentDate.valid && (appointmentDate.dirty || appointmentDate.touched)
+                            }" [nbDatepicker]="appointmentDatePicker" class="form-control"
+                            formControlName="appointmentDate" fullWidth id="appointmentDate" nbInput
+                            placeholder="Appointment Date" size="small">
+                        <nb-datepicker #appointmentDatePicker [min]="TODAY_DATE"></nb-datepicker>
+                        <span class="invalid-feedback" *ngIf="appointmentDate.errors?.required">Appointment date is
+                            required.</span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="appointmentTime">Appointment Time</label>
+                        <input [ngClass]="{
+                            'is-invalid': appointmentTime.invalid && (appointmentTime.dirty || appointmentTime.touched),
+                            'is-valid': appointmentTime.valid && (appointmentTime.dirty || appointmentTime.touched)
+                            }" class="form-control" formControlName="appointmentTime" fullWidth nbInput type="time">
+                        <span class="invalid-feedback" *ngIf="appointmentTime.errors?.required">Appointment time is
+                            required.</span>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <button [disabled]="form.invalid" nbButton size="small" status="success" type="submit">
+                            Create Appointment
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
         </form>
     </nb-card-body>
 </nb-card>
