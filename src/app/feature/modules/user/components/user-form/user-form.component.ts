@@ -9,6 +9,7 @@ import { UserService } from 'src/app/@core/services';
 import { Alert, AlertType } from 'src/app/@theme/models/alert';
 import { ToastService } from 'src/app/@theme/services/toast.service';
 import { DialogResponse, DialogResponseType } from 'src/app/@theme/models/dialog-response';
+import { AppConstant, PatternConstant } from 'src/app/@core/constants';
 
 @Component({
   selector: 'app-user-form',
@@ -24,7 +25,6 @@ export class UserFormComponent implements OnInit {
   public EnumUtils = EnumUtils;
   public Action = Action;
   public genderPairs = EnumUtils.pairs(Gender);
-  pattern = '^((\\+91-?)|0)?[0-9]{10}$';
 
   constructor(
     public nbDialogRef: NbDialogRef<UserFormComponent>,
@@ -110,7 +110,7 @@ export class UserFormComponent implements OnInit {
       ],
       contactNumber: [
         ObjectUtils.setUndefinedIfNull(this.model.contactNumber),
-        [Validators.required, Validators.pattern(this.pattern)]
+        [Validators.required, Validators.pattern(PatternConstant.NUMBER_ONLY)]
       ],
       gender: [
         ObjectUtils.setUndefinedIfNull(this.model.gender),
