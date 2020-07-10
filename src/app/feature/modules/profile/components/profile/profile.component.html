@@ -1,0 +1,106 @@
+<div class="row justify-content-center">
+    <nb-user size="large" picture="../../../../assets/images/avatar.png"
+             title="Profile Picture"
+             onlyPicture>
+    </nb-user>
+</div>
+<hr class="bg-primary"/>
+<div class="row justify-content-center">
+    <span class="font-weight-bold">Current User</span>
+</div>
+<hr/>
+<div class="row" *ngIf="user?.userType === 'SUPER_ADMINISTRATOR' ||
+ user?.userType === 'ADMINISTRATOR' || user?.userType === 'DOCTOR'
+  || user?.userType === 'PATIENT'">
+    <div class="col-md-6">
+        <span class="font-weight-bold justify-content-center">General Information</span>
+        <hr class="bg-primary"/>
+        <nb-card>
+            <nb-card-header>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="box-body">
+                    <table class="table table-bordered table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>User Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{user?.name |checkEmpty}}</td>
+                                <td>{{user?.username |checkEmpty}}</td>
+                                <td>{{user?.userType |checkEmpty}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+    <div class="col-md-6">
+        <span class="font-weight-bold justify-content-center">Contact Information</span>
+        <hr class="bg-primary"/>
+        <nb-card>
+            <nb-card-header>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="box-body">
+                    <table class="table table-bordered table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Contact Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{user?.email | checkEmpty}}</td>
+                                <td>{{user?.address | checkEmpty}}</td>
+                                <td>{{user?.contactNumber | checkEmpty}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+<div class="row" *ngIf="user?.userType === 'DOCTOR' || user?.userType === 'PATIENT'">
+    <div class="col-md-12">
+        <span class="font-weight-bold">Detail Information:</span>
+        <hr class="bg-primary"/>
+        <nb-card>
+            <nb-card-header>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="box-body">
+                    <table class="table table-bordered table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th *ngIf="user?.userType === 'DOCTOR'">Department</th>
+                                <th *ngIf="user?.userType === 'DOCTOR'">Specialize Field</th>
+                                <th *ngIf="user?.userType === 'PATIENT'">Age</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{user?.name | checkEmpty}}</td>
+                                <td>{{user?.gender | checkEmpty}}</td>
+                                <td *ngIf="user?.userType === 'DOCTOR'">{{doctor?.department | checkEmpty}}</td>
+                                <td *ngIf="user?.userType === 'DOCTOR'">{{doctor?.specializationField | checkEmpty}}</td>
+                                <td *ngIf="user?.userType === 'PATIENT'">{{patient?.age | checkEmpty}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

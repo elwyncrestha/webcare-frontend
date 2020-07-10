@@ -136,6 +136,16 @@ export abstract class BaseService<T> {
     return this.http.post(req.url, searchObj, { headers: req.header });
   }
 
+  public getOneWithSearchObject(
+    searchObj: any,
+    id: number
+  ): Observable<any> {
+    const api = `${this.getApi()}/${id}`;
+    const req = AppUtils.getRequest(api);
+
+    return this.http.post(req.url, searchObj, { headers: req.header });
+  }
+
   public set(obj: T): void {
     this.obj = obj;
   }

@@ -79,7 +79,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (value === HeaderComponent.LOGOUT) {
         this.logout();
       } else if (value === HeaderComponent.PROFILE) {
-        this.router.navigate(['/pages/profile']);
+        this.router.navigate(['/feature/profile']);
       } else if (value === HeaderComponent.CHANGE_PASSWORD) {
         this.dialogService.open(ChangePasswordComponent);
       }
