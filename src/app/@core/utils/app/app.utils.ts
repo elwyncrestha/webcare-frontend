@@ -17,6 +17,18 @@ export class AppUtils {
         };
     }
 
+    public static getUnAuthenticatedRequest(api: string) {
+        const fullApi = `${environment.URL}/${api}`;
+        const at = LocalStorageUtils.getStorage().at;
+
+        return {
+            url: fullApi,
+            header: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+    }
+
     public static getRequestWithFileSupport(api: string) {
         const fullApi = `${environment.URL}/${api}`;
         const at = LocalStorageUtils.getStorage().at;

@@ -31,7 +31,7 @@ export class FeatureComponent implements OnInit {
     switch (LocalStorageUtils.getStorage().userType) {
       case EnumUtils.getEnum(UserType, UserType.SUPER_ADMINISTRATOR):
       case EnumUtils.getEnum(UserType, UserType.ADMINISTRATOR):
-        this.menuPush([MenuTitle.USER, MenuTitle.DEPARTMENT, MenuTitle.INVENTORY]);
+        this.menuPush([MenuTitle.USER, MenuTitle.DEPARTMENT, MenuTitle.INVENTORY, MenuTitle.APPOINTMeNT]);
         break;
     }
   }
