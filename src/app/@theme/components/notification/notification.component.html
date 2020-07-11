@@ -1,0 +1,38 @@
+<nb-card size="small">
+    <nb-card-header>
+        Notification
+    </nb-card-header>
+    <nb-card-body>
+        <div *ngIf="notifications?.length < 1">
+            <div class="notification-container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong class="notification-msg">No notifications!!!</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="notifications">
+            <ng-container *ngFor="let notification of notifications">
+                <div class="notification-container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong class="notification-msg">{{notification?.message}}</strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <small>{{notification?.createdAt | date:'medium'}}</small>
+                        </div>
+                        <div class="col-md-5 text-right">
+                            <a (click)="markAsSeen(notification)" class="cursor mark-seen-text">
+                                <small>Mark Read <i class="fa fa-check-double"></i></small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </ng-container>
+        </div>
+    </nb-card-body>
+</nb-card>

@@ -60,6 +60,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CheckEmptyPipe } from './pipes/check-empty.pipe';
 import { TwoButtonConfirmComponent } from './components/two-button-confirm/two-button-confirm.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 const NB_MODULES = [
   NbCardModule,
@@ -109,11 +110,10 @@ const COMPONENTS = [
   SpinnerComponent,
   PaginationComponent,
   TwoButtonConfirmComponent,
+  NotificationComponent,
 ];
 
-const ENTRY_COMPONENTS = [
-  TwoButtonConfirmComponent,
-];
+const ENTRY_COMPONENTS = [TwoButtonConfirmComponent];
 
 const PIPES = [
   CapitalizePipe,
@@ -134,7 +134,7 @@ const DIRECTIVES = [];
     ...OTHER_MODULES,
     ...PIPES,
     ...COMPONENTS,
-    ...DIRECTIVES
+    ...DIRECTIVES,
   ],
   declarations: [...COMPONENTS, ...DIRECTIVES, ...PIPES],
   entryComponents: [...ENTRY_COMPONENTS],

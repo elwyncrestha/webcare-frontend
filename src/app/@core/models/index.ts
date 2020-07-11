@@ -6,6 +6,8 @@ export * from './department/department.model';
 export * from './doctor/doctor.model';
 // inventory
 export * from './inventory/inventory.model';
+// notification
+export * from './notification/notification.model';
 // pageable
 export * from './pageable/pageable.model';
 // patient

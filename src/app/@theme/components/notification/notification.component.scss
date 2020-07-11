@@ -1,0 +1,26 @@
+@import "../../../@theme/styles/themes";
+
+@include nb-install-component() {
+  small {
+    font-size: 70%;
+  }
+
+  nb-card {
+    margin-bottom: 0;
+    max-height: 95vh;
+    max-width: 70vw;
+    min-width: 15vw;
+  }
+
+  .notification-msg {
+    font-size: 14px;
+  }
+
+  .mark-seen-text:hover {
+    color: red;
+  }
+
+  .notification-container:hover {
+    background-color: #fafafa;
+  }
+}

@@ -1,4 +1,4 @@
-<nb-card [nbSpinner]="spinner">
+<nb-card [class.nb-card-modal]="action === Action.UPDATE" [nbSpinner]="spinner">
     <nb-card-header>
         Appointment
         <button *ngIf="action === Action.UPDATE" (click)="this.nbDialogRef.close('Modal Closed')" class="float-right"
