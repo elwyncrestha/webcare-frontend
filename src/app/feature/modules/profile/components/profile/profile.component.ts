@@ -30,20 +30,20 @@ export class ProfileComponent implements OnInit {
         this.doctorService.getOneWithSearchObject(filter, Number(LocalStorageUtils.getStorage().userId))
         .subscribe((response: any) => {
           this.doctor = response.detail;
-          this.user = response.doctor.user;
+          this.user = this.doctor.user;
         });
         break;
-        case UserType.PATIENT:
+      case UserType.PATIENT:
           this.patientService.getOneWithSearchObject(filter, Number(LocalStorageUtils.getStorage().userId))
           .subscribe((response: any) => {
             this.patient = response.detail;
-            this.user = response.patient.user;
+            this.user = this.patient.user;
           });
           break;
-          default:
-            this.userService.getAuthenticated().subscribe((response: any) => {
+      default:
+          this.userService.getAuthenticated().subscribe((response: any) => {
               this.user = response.detail;
-            });
+        });
     }
   }
 
