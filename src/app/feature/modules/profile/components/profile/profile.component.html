@@ -1,79 +1,69 @@
-<div class="row justify-content-center">
-    <nb-user size="large" picture="../../../../assets/images/avatar.png"
-             title="Profile Picture"
-             onlyPicture>
+<div class="d-flex justify-content-center">
+    <nb-user size="large" picture="../../../../assets/images/avatar.png" title="Profile Picture" onlyPicture>
     </nb-user>
 </div>
-<hr class="bg-primary"/>
-<div class="row justify-content-center">
+<div class="d-flex justify-content-center">
     <span class="font-weight-bold">{{user?.name}}</span>
 </div>
-<hr/>
+<hr class="bg-primary" />
 <div class="row">
     <div class="col-md-6">
-        <span class="font-weight-bold justify-content-center">General Information</span>
-        <hr class="bg-primary"/>
         <nb-card>
             <nb-card-header>
+                <span class="font-weight-bold justify-content-center">General Information</span>
             </nb-card-header>
             <nb-card-body>
-                <div class="box-body">
-                    <table class="table table-bordered table-hover text-center">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Username</th>
-                                <th>User Type</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{user?.name |checkEmpty}}</td>
-                                <td>{{user?.username |checkEmpty}}</td>
-                                <td>{{user?.userType |checkEmpty}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <table class="table table-bordered table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>User Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{user?.name | checkEmpty}}</td>
+                            <td>{{user?.username | checkEmpty}}</td>
+                            <td>{{UserType[user?.userType] | checkEmpty}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </nb-card-body>
         </nb-card>
     </div>
     <div class="col-md-6">
-        <span class="font-weight-bold justify-content-center">Contact Information</span>
-        <hr class="bg-primary"/>
         <nb-card>
             <nb-card-header>
+                <span class="font-weight-bold justify-content-center">Contact Information</span>
             </nb-card-header>
             <nb-card-body>
-                <div class="box-body">
-                    <table class="table table-bordered table-hover text-center">
-                        <thead>
-                            <tr>
-                                <th>Email</th>
-                                <th>Address</th>
-                                <th>Contact Number</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{user?.email | checkEmpty}}</td>
-                                <td>{{user?.address | checkEmpty}}</td>
-                                <td>{{user?.contactNumber | checkEmpty}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <table class="table table-bordered table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Contact Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{user?.email | checkEmpty}}</td>
+                            <td>{{user?.address | checkEmpty}}</td>
+                            <td>{{user?.contactNumber | checkEmpty}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </nb-card-body>
         </nb-card>
     </div>
 </div>
 
-<div class="row" *ngIf="user?.userType === 'DOCTOR'">
+<div class="row" *ngIf="user?.userType === EnumUtils.getEnum(UserType, UserType.DOCTOR)">
     <div class="col-md-12">
-        <span class="font-weight-bold">Detail Information:</span>
-        <hr class="bg-primary"/>
         <nb-card>
             <nb-card-header>
+                <span class="font-weight-bold">Detail Information</span>
             </nb-card-header>
             <nb-card-body>
                 <div class="box-body">
@@ -83,14 +73,14 @@
                                 <th>Name</th>
                                 <th>Gender</th>
                                 <th>Department</th>
-                                <th>Specialize Field</th>
+                                <th>Specialization Field</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>{{user?.name | checkEmpty}}</td>
-                                <td>{{user?.gender | checkEmpty}}</td>
-                                <td>{{doctor?.department | checkEmpty}}</td>
+                                <td>{{Gender[user?.gender] | checkEmpty}}</td>
+                                <td>{{doctor?.department?.name | checkEmpty}}</td>
                                 <td>{{doctor?.specializationField | checkEmpty}}</td>
                             </tr>
                         </tbody>
@@ -100,12 +90,11 @@
         </nb-card>
     </div>
 </div>
-<div class="row" *ngIf="user?.userType === 'PATIENT'">
+<div class="row" *ngIf="user?.userType === EnumUtils.getEnum(UserType, UserType.PATIENT)">
     <div class="col-md-12">
-        <span class="font-weight-bold">Detail Information:</span>
-        <hr class="bg-primary"/>
         <nb-card>
             <nb-card-header>
+                <span class="font-weight-bold">Detail Information</span>
             </nb-card-header>
             <nb-card-body>
                 <div class="box-body">
@@ -120,7 +109,7 @@
                         <tbody>
                             <tr>
                                 <td>{{user?.name | checkEmpty}}</td>
-                                <td>{{user?.gender | checkEmpty}}</td>
+                                <td>{{Gender[user?.gender] | checkEmpty}}</td>
                                 <td>{{patient?.age | checkEmpty}}</td>
                             </tr>
                         </tbody>
@@ -130,4 +119,3 @@
         </nb-card>
     </div>
 </div>
-
