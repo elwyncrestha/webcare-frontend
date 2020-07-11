@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Gender } from 'src/app/@core/enums';
+import { Gender, NotificationStatus } from 'src/app/@core/enums';
 import { Doctor } from 'src/app/@core/models';
 import { Appointment } from 'src/app/@core/models/appointment/appointment.model';
 import { Department } from 'src/app/@core/models/department/department.model';
@@ -8,6 +8,7 @@ import {
   DepartmentService,
   DoctorService,
   PatientService,
+  SocketService,
 } from 'src/app/@core/services';
 import { AppointmentService } from 'src/app/@core/services/appointment/appointment.service';
 import { EnumUtils, ObjectUtils } from 'src/app/@core/utils';
@@ -47,7 +48,8 @@ export class AppointmentComponent implements OnInit {
     private doctorService: DoctorService,
     private patientService: PatientService,
     private router: Router,
-    @Optional() public nbDialogRef: NbDialogRef<AppointmentComponent>
+    @Optional() public nbDialogRef: NbDialogRef<AppointmentComponent>,
+    private socketService: SocketService
   ) {}
 
   get id() {

@@ -1,3 +1,5 @@
+// notification
+export * from './notification/notification-status.enum';
 // status
 export * from './status/status.enum';
 // user

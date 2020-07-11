@@ -1,5 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbMediaBreakpointsService, NbSidebarService, NbThemeService, NbMenuService, NbDialogService } from '@nebular/theme';
+import {
+  NbMediaBreakpointsService,
+  NbSidebarService,
+  NbThemeService,
+  NbMenuService,
+  NbDialogService,
+  NbPosition,
+} from '@nebular/theme';
 
 import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -7,6 +14,7 @@ import { LocalStorageUtils } from 'src/app/@core/utils';
 import { Router } from '@angular/router';
 import { UserType } from 'src/app/@core/enums';
 import { ChangePasswordComponent } from 'src/app/components';
+import { NotificationService, SocketService } from 'src/app/@core/services';
 
 @Component({
   selector: 'app-header',
@@ -23,15 +31,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   contextMenuTag = 'user-context-menu';
   private destroy$: Subject<void> = new Subject<void>();
   public loggedInUser: {
-    userId: number,
-    userFullName: string,
-    userType: string,
+    userId: number;
+    userFullName: string;
+    userType: string;
   };
   public userMenu = [
     { title: HeaderComponent.PROFILE },
     { title: HeaderComponent.CHANGE_PASSWORD },
     { title: HeaderComponent.LOGOUT },
   ];
+  public notificationCount: number;
+  public NbPosition = NbPosition;
   private UserType = UserType;
 
   constructor(
@@ -41,8 +51,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private menuService: NbMenuService,
     private router: Router,
     private dialogService: NbDialogService,
-  ) {
-  }
+    private notificationService: NotificationService,
+    private socketService: SocketService
+  ) {}
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
@@ -53,38 +64,46 @@ export class HeaderComponent implements OnInit, OnDestroy {
     };
 
     const { xl } = this.breakpointService.getBreakpointsMap();
-    this.themeService.onMediaQueryChange()
+    this.themeService
+      .onMediaQueryChange()
       .pipe(
         map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
-        takeUntil(this.destroy$),
+        takeUntil(this.destroy$)
       )
-      .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
+      .subscribe(
+        (isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl)
+      );
 
-    this.themeService.onThemeChange()
+    this.themeService
+      .onThemeChange()
       .pipe(
         map(({ name }) => name),
-        takeUntil(this.destroy$),
+        takeUntil(this.destroy$)
       )
-      .subscribe(themeName => this.currentTheme = themeName);
+      .subscribe((themeName) => (this.currentTheme = themeName));
 
-    this.menuService.onItemClick().pipe(
-      filter(({ tag }) => tag === this.contextMenuTag),
-      map(({ item: { title } }) => title),
-      filter((title) =>
-        title === HeaderComponent.LOGOUT
-        || title === HeaderComponent.PROFILE
-        || title === HeaderComponent.CHANGE_PASSWORD
-      ),
-    ).subscribe((value) => {
-      if (value === HeaderComponent.LOGOUT) {
-        this.logout();
-      } else if (value === HeaderComponent.PROFILE) {
-        this.router.navigate(['/feature/profile']);
-      } else if (value === HeaderComponent.CHANGE_PASSWORD) {
-        this.dialogService.open(ChangePasswordComponent);
-      }
-    });
-
+    this.menuService
+      .onItemClick()
+      .pipe(
+        filter(({ tag }) => tag === this.contextMenuTag),
+        map(({ item: { title } }) => title),
+        filter(
+          (title) =>
+            title === HeaderComponent.LOGOUT ||
+            title === HeaderComponent.PROFILE ||
+            title === HeaderComponent.CHANGE_PASSWORD
+        )
+      )
+      .subscribe((value) => {
+        if (value === HeaderComponent.LOGOUT) {
+          this.logout();
+        } else if (value === HeaderComponent.PROFILE) {
+          this.router.navigate(['/feature/profile']);
+        } else if (value === HeaderComponent.CHANGE_PASSWORD) {
+          this.dialogService.open(ChangePasswordComponent);
+        }
+      });
+    this.setupNotification();
   }
 
   ngOnDestroy() {
@@ -99,7 +118,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+    this.socketService.closeSocket();
     LocalStorageUtils.clearStorage();
     this.router.navigate(['/login']);
+  }
+
+  private setupNotification(): void {
+    this.socketService.initializeWebSocketConnection();
+    this.notificationService.fetchNotifications();
+    this.notificationService.notificationCount.subscribe(
+      (value) => (this.notificationCount = value)
+    );
   }
 }

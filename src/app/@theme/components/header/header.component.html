@@ -11,11 +11,13 @@
 <div class="header-container">
   <nb-actions size="small">
 
-    <nb-action class="control-item">
+    <!-- <nb-action class="control-item">
       <nb-search type="rotate-layout"></nb-search>
     </nb-action>
-    <nb-action class="control-item" icon="email-outline"></nb-action>
-    <nb-action class="control-item" icon="bell-outline"></nb-action>
+    <nb-action class="control-item" icon="email-outline"></nb-action> -->
+    <nb-action [nbPopover]="notificationPopover" [nbPopoverPlacement]="NbPosition.BOTTOM"
+      [badgeText]="notificationCount === 0 ? '' : notificationCount.toString()" badgeStatus="danger"
+      class="control-item" icon="bell-outline"></nb-action>
     <nb-action class="user-action">
       <nb-user [nbContextMenu]="userMenu" [onlyPicture]="userPictureOnly" [name]="loggedInUser?.userFullName"
         nbContextMenuTag="{{contextMenuTag}}" [title]="loggedInUser?.userType"
@@ -24,3 +26,7 @@
     </nb-action>
   </nb-actions>
 </div>
+
+<ng-template #notificationPopover>
+  <app-notification></app-notification>
+</ng-template>
