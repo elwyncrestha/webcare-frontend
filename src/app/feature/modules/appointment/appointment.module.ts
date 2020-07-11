@@ -5,17 +5,10 @@ import { AppontmentRoutingModule } from './appontment-routing.module';
 import { ThemeModule } from 'src/app/@theme/theme.module';
 import { AppointmentListComponent } from './components/appointment-list/appointment-list.component';
 
-
-
 @NgModule({
   declarations: [AppointmentComponent, AppointmentListComponent],
-  imports: [
-    CommonModule,
-    AppontmentRoutingModule,
-    ThemeModule
-  ],
-  exports: [
-    AppointmentComponent
-  ]
+  imports: [CommonModule, AppontmentRoutingModule, ThemeModule],
+  exports: [AppointmentComponent],
+  entryComponents: [AppointmentComponent],
 })
-export class AppointmentModule { }
+export class AppointmentModule {}
