@@ -1,1 +1,77 @@
-<p>appointment-list works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                <div class=row>
+                    <div class="col-md-6">
+                        <button (click)="isFilterCollapsed = !isFilterCollapsed"
+                            [attr.aria-expanded]="!isFilterCollapsed" nbButton status="primary">
+                            <i class="fa fa-filter"> Filter</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div [hidden]="isFilterCollapsed" class="col-md-12" id="searchModel">
+                        <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+                            <div class="d-flex py-3 justify-content-start">
+                                <input class="mr-1" fieldSize="medium" formControlName="name" id="name" nbInput
+                                    placeholder="Enter name" type="text">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="mr-2" nbButton status="info" type="submit"
+                                        size="small">Search</button>
+                                    <button (click)="clearSearch()" class="mr-2" nbButton status="danger" type="button"
+                                        size="small">Clear
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="box-body">
+                    <table class="table table-bordered table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>S.N</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Contact Number</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Age</th>
+                                <th>Department</th>
+                                <th>Doctor</th>
+                                <th>Appointment Date</th>
+                                <th>Apptointment Time</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let patient of appointmentList;let i=index">
+                                <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                                <td>{{ patient?.user?.name | checkEmpty }}</td>
+                                <td>{{ patient?.user?.address | checkEmpty }}</td>
+                                <td>{{ patient?.user?.contactNumber | checkEmpty }}</td>
+                                <td>{{ patient?.user?.email | checkEmpty }}</td>
+                                <td>{{ patient?.user?.gender | checkEmpty }}</td>
+                                <td>{{ patient?.age | checkEmpty }}</td>
+                                <td>{{ patient?.department?.name | checkEmpty }}</td>
+                                <td>{{ patient?.doctor?.user?.name | checkEmpty }}</td>
+                                <td>{{ patient?.appointmentDate | date | checkEmpty }}</td>
+                                <td>{{ patient?.appointmentTime | checkEmpty }}</td>
+                                <td>N/A</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <app-spinner *ngIf="spinner" class="d-flex justify-content-center">
+                    </app-spinner>
+                    <app-pagination (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable">
+                    </app-pagination>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
