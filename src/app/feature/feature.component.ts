@@ -12,14 +12,12 @@ import { UserType } from '../@core/enums';
       <router-outlet></router-outlet>
     </app-one-column-layout>
   `,
-  styleUrls: ['./feature.component.scss']
+  styleUrls: ['./feature.component.scss'],
 })
 export class FeatureComponent implements OnInit {
-
   menu: NbMenuItem[] = [];
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
     this.resolveSideBarRoutes();
@@ -31,13 +29,20 @@ export class FeatureComponent implements OnInit {
     switch (LocalStorageUtils.getStorage().userType) {
       case EnumUtils.getEnum(UserType, UserType.SUPER_ADMINISTRATOR):
       case EnumUtils.getEnum(UserType, UserType.ADMINISTRATOR):
-        this.menuPush([MenuTitle.USER, MenuTitle.DEPARTMENT, MenuTitle.INVENTORY, MenuTitle.APPOINTMeNT]);
+        this.menuPush([
+          MenuTitle.USER,
+          MenuTitle.DEPARTMENT,
+          MenuTitle.INVENTORY,
+          MenuTitle.APPOINTMENT,
+        ]);
+        break;
+      case EnumUtils.getEnum(UserType, UserType.RECEPTIONIST):
+        this.menuPush([MenuTitle.APPOINTMENT]);
         break;
     }
   }
 
   private menuPush(menuTitle: string[]): void {
-    menuTitle.forEach(t => this.menu.push(MENU_ITEMS.get(t)));
+    menuTitle.forEach((t) => this.menu.push(MENU_ITEMS.get(t)));
   }
-
 }

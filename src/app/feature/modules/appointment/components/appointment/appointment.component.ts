@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, Optional } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Gender, NotificationStatus } from 'src/app/@core/enums';
+import { Router } from '@angular/router';
+import { NbDialogRef } from '@nebular/theme';
+import { AppointmentStatus, Gender } from 'src/app/@core/enums';
 import { Doctor } from 'src/app/@core/models';
 import { Appointment } from 'src/app/@core/models/appointment/appointment.model';
 import { Department } from 'src/app/@core/models/department/department.model';
@@ -14,13 +16,11 @@ import { AppointmentService } from 'src/app/@core/services/appointment/appointme
 import { EnumUtils, ObjectUtils } from 'src/app/@core/utils';
 import { Action } from 'src/app/@theme/models/action.enum';
 import { Alert, AlertType } from 'src/app/@theme/models/alert';
-import { ToastService } from 'src/app/@theme/services/toast.service';
-import { Router } from '@angular/router';
-import { NbDialogRef } from '@nebular/theme';
 import {
   DialogResponse,
   DialogResponseType,
 } from 'src/app/@theme/models/dialog-response';
+import { ToastService } from 'src/app/@theme/services/toast.service';
 
 @Component({
   selector: 'app-appointment',
@@ -141,6 +141,10 @@ export class AppointmentComponent implements OnInit {
 
   public submit(): void {
     this.spinner = true;
+    this.model.status = EnumUtils.getEnum(
+      AppointmentStatus,
+      AppointmentStatus.PENDING
+    );
     this.model.appointmentDate = this.appointmentDate.value;
     this.model.appointmentTime = this.appointmentTime.value;
     this.model.department = this.department.value;
