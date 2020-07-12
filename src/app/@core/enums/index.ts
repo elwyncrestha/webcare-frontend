@@ -1,3 +1,5 @@
+// appointment
+export * from './appointment/appointment-status.enum';
 // notification
 export * from './notification/notification-status.enum';
 // status
