@@ -52,9 +52,10 @@
                             'is-invalid': contactNumber.invalid && (contactNumber.dirty || contactNumber.touched),
                             'is-valid': contactNumber.valid && (contactNumber.dirty || contactNumber.touched)
                             }" class="form-control" fullWidth formControlName="contactNumber" id="contactNumber"
-                            nbInput placeholder="Enter contact number" size="small" type="text">
+                            nbInput placeholder="Enter contact number" size="small" type="number">
                         <span class="invalid-feedback" *ngIf="contactNumber.errors?.required">Contact number is
                             required.</span>
+                        <span class="invalid-feedback" *ngIf="contactNumber.errors?.pattern">Invalid Contact Numer</span>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="email">Email</label>
@@ -64,6 +65,7 @@
                             }" class="form-control" fullWidth formControlName="email" id="email" nbInput
                             placeholder="Enter email address" size="small" type="email">
                         <span class="invalid-feedback" *ngIf="email.errors?.required">Email address is required.</span>
+                        <span class="invalid-feedback" *ngIf="email.errors?.email">Email address is invalid.</span>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="gender">Gender</label>
