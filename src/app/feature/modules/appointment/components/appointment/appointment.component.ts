@@ -21,6 +21,7 @@ import {
   DialogResponseType,
 } from 'src/app/@theme/models/dialog-response';
 import { ToastService } from 'src/app/@theme/services/toast.service';
+import { PatternConstant } from 'src/app/@core/constants';
 
 @Component({
   selector: 'app-appointment',
@@ -238,11 +239,11 @@ export class AppointmentComponent implements OnInit {
         ObjectUtils.setUndefinedIfNull(
           this.model?.patient?.user?.contactNumber
         ),
-        [Validators.required],
+        [Validators.required, Validators.pattern(PatternConstant.NUMBER_ONLY)],
       ],
       email: [
         ObjectUtils.setUndefinedIfNull(this.model?.patient?.user?.email),
-        [Validators.required],
+        [Validators.required, Validators.email],
       ],
       gender: [
         ObjectUtils.setUndefinedIfNull(this.model?.patient?.user?.gender),

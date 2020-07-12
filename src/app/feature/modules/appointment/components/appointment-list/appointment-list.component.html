@@ -46,6 +46,7 @@
                             <th>Doctor</th>
                             <th>Appointment Date</th>
                             <th>Apptointment Time</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -62,6 +63,14 @@
                             <td>{{ appointment?.doctor?.user?.name | checkEmpty }}</td>
                             <td>{{ appointment?.appointmentDate | date | checkEmpty }}</td>
                             <td>{{ appointment?.appointmentTime | checkEmpty }}</td>
+                            <td>
+                                <div class="p-1 mb-2 bg-warning text-white"
+                                *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.PENDING)">{{AppointmentStatus.PENDING}}</div>
+                                <div class="p-1 mb-2 bg-success text-white"
+                                *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.APPROVED)">{{AppointmentStatus.APPROVED}}</div>
+                                <div class="p-1 mb-2 bg-danger text-white"
+                                *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.REJECTED)">{{AppointmentStatus.REJECTED}}</div>
+                            </td>
                             <td>
                                 <ng-container
                                     *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.PENDING); else templateNA">
