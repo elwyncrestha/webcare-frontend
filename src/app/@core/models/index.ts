@@ -1,3 +1,5 @@
+import { from } from 'rxjs';
+
 // appointment
 export * from './appointment/appointment.model';
 // department
@@ -14,3 +16,5 @@ export * from './pageable/pageable.model';
 export * from './patient/patient.model';
 // user
 export * from './user/user.model';
+// help desk
+export * from './help-desk/help-desk.model';

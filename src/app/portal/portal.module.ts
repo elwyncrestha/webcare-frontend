@@ -6,15 +6,18 @@ import { PatientAppointmentComponent } from './components/patient-appointment/pa
 import { ThemeModule } from '../@theme/theme.module';
 import { PortalBaseComponent } from './components/portal-base/portal-base.component';
 import { AppointmentModule } from '../feature/modules/appointment/appointment.module';
+import { HelpDeskModule } from '../feature/modules/helpdesk/help-desk.module';
+import { UserQueryComponent } from './components/user-query/user-query.component';
 
 
 @NgModule({
-  declarations: [PatientAppointmentComponent, PortalBaseComponent],
+  declarations: [PatientAppointmentComponent, PortalBaseComponent, UserQueryComponent],
   imports: [
     CommonModule,
     PortalRoutingModule,
     ThemeModule,
-    AppointmentModule
+    AppointmentModule,
+    HelpDeskModule
   ]
 })
 export class PortalModule { }
