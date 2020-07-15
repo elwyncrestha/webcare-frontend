@@ -1,5 +1,3 @@
-import { from } from 'rxjs';
-
 // appointment
 export * from './appointment/appointment.model';
 // department

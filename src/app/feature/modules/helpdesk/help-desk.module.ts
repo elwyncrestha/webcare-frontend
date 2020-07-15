@@ -9,6 +9,5 @@ import { QueryListComponent } from './components/query-list/query-list.component
   declarations: [HelpDeskComponent, QueryListComponent],
   imports: [CommonModule, HelpDeskRoutingModule, ThemeModule],
   exports: [HelpDeskComponent],
-  entryComponents: [HelpDeskComponent],
 })
 export class HelpDeskModule {}
