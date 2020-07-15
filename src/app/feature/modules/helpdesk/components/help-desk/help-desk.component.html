@@ -1,0 +1,53 @@
+<form class="text-left" (ngSubmit)="submit()" [formGroup]="form">
+  <ng-container>
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <label for="name">Name</label>
+        <input [ngClass]="{
+                    'is-invalid': name.invalid && (name.dirty || name.touched),
+                    'is-valid': name.valid && (name.dirty || name.touched)
+                    }" class="form-control" formControlName="name" fullWidth id="name" nbInput placeholder="Enter name"
+          size="small">
+        <span class="invalid-feedback" *ngIf="name.errors?.required">Name is required.</span>
+      </div>
+      <div class="col-md-4 form-group">
+        <label for="email">Email</label>
+        <input [ngClass]="{
+                    'is-invalid': email.invalid && (email.dirty || email.touched),
+                    'is-valid': email.valid && (email.dirty || email.touched)
+                    }" class="form-control" fullWidth formControlName="email" id="email" nbInput
+          placeholder="Enter email address" size="small" type="email">
+        <span class="invalid-feedback" *ngIf="email.errors?.required">Email address is required.</span>
+        <span class="invalid-feedback" *ngIf="email.errors?.email">Email address is invalid.</span>
+      </div>
+      <div class="col-md-4 form-group">
+        <label for="contactNumber">Contact Number</label>
+        <input [ngClass]="{
+                    'is-invalid': contactNumber.invalid && (contactNumber.dirty || contactNumber.touched),
+                    'is-valid': contactNumber.valid && (contactNumber.dirty || contactNumber.touched)
+                    }" class="form-control" fullWidth formControlName="contactNumber" id="contactNumber" nbInput
+          placeholder="Enter contact number" size="small" type="number">
+        <span class="invalid-feedback" *ngIf="contactNumber.errors?.required">Contact number is
+          required.</span>
+        <span class="invalid-feedback" *ngIf="contactNumber.errors?.pattern">Invalid Contact Numer</span>
+      </div>
+      <div class="col-md-12 form-group">
+        <label for="query">Your Question</label>
+        <textarea nbInput [ngClass]="{
+                    'is-invalid': query.invalid && (query.dirty || query.touched),
+                    'is-valid': query.valid && (query.dirty || query.touched)
+                    }" fullWidth placeholder="Ask your question here" formControlName="query" id="query"
+          rows="4"></textarea>
+        <span class="invalid-feedback" *ngIf="query.errors?.required">Question must not be empty</span>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-md-12">
+        <button [disabled]="form.invalid" nbButton size="small" status="success" type="submit">
+          Submit
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</form>
