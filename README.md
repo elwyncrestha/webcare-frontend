@@ -1,5 +1,7 @@
 # WebcareFront
 
+![Angular Build CI](https://github.com/elwyncrestha/webcare-frontend/workflows/Angular%20Build%20CI/badge.svg)
+
 [WebcareBackend](https://github.com/elwyncrestha/webcare-backend)
 
 ---
