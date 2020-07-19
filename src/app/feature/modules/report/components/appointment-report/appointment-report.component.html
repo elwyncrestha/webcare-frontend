@@ -1,3 +1,6 @@
+<div #topDiv>
+    <!-- Empty div for navigating -->
+</div>
 <nb-flip-card [flipped]="cardFlipped" [showToggleButton]="false">
     <nb-card-front>
         <nb-card>
@@ -22,7 +25,7 @@
                     <button (click)="goBack()" class="ml-2" nbButton outline size="tiny" status="primary">
                         Go Back
                     </button>
-                    <button *ngIf="isDoctor" (click)="cardFlipped = true" class="ml-2" nbButton outline size="tiny"
+                    <button *ngIf="isDoctor" (click)="flipCard(true)" class="ml-2" nbButton outline size="tiny"
                         status="success">
                         {{appointmentReport ? 'Edit' : 'Create'}} Report
                     </button>
@@ -50,7 +53,7 @@
                 </form>
             </nb-card-body>
             <nb-card-footer class="text-center">
-                <button (click)="cardFlipped = false" class="ml-2" nbButton outline size="tiny" status="success">
+                <button (click)="flipCard(false)" class="ml-2" nbButton outline size="tiny" status="success">
                     View the report instead
                 </button>
             </nb-card-footer>

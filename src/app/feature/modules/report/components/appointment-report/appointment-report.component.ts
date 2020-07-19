@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { AppointmentReportService } from 'src/app/@core/services';
 import { ActivatedRoute } from '@angular/router';
 import { ToastService } from 'src/app/@theme/services/toast.service';
@@ -10,6 +16,7 @@ import { UserType } from 'src/app/@core/enums';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AppointmentReportDumps } from 'src/app/@core/constants';
+import { ScrollNavService } from 'src/app/@theme/services/scroll-nav.service';
 
 @Component({
   selector: 'app-appointment-report',
@@ -18,6 +25,8 @@ import { AppointmentReportDumps } from 'src/app/@core/constants';
   encapsulation: ViewEncapsulation.None,
 })
 export class AppointmentReportComponent implements OnInit {
+  @ViewChild('topDiv') private topDiv: ElementRef;
+
   public spinner = false;
   public appointmentReport: AppointmentReport;
   public isDoctor = false;
@@ -31,7 +40,8 @@ export class AppointmentReportComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private toastService: ToastService,
     private location: Location,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private scrollNavService: ScrollNavService
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +76,11 @@ export class AppointmentReportComponent implements OnInit {
         this.spinner = false;
       }
     );
+  }
+
+  public flipCard(flip: boolean) {
+    this.cardFlipped = flip;
+    this.scrollNavService.scrollNavigateTo(this.topDiv);
   }
 
   private buildForm(): void {
