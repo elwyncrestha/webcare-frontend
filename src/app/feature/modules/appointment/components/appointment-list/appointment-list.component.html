@@ -65,15 +65,18 @@
                             <td>{{ appointment?.appointmentTime | checkEmpty }}</td>
                             <td>
                                 <div class="p-1 mb-2 bg-warning text-white"
-                                *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.PENDING)">{{AppointmentStatus.PENDING}}</div>
+                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.PENDING)">
+                                    {{AppointmentStatus.PENDING}}</div>
                                 <div class="p-1 mb-2 bg-success text-white"
-                                *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.APPROVED)">{{AppointmentStatus.APPROVED}}</div>
+                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.APPROVED)">
+                                    {{AppointmentStatus.APPROVED}}</div>
                                 <div class="p-1 mb-2 bg-danger text-white"
-                                *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.REJECTED)">{{AppointmentStatus.REJECTED}}</div>
+                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.REJECTED)">
+                                    {{AppointmentStatus.REJECTED}}</div>
                             </td>
                             <td>
                                 <ng-container
-                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.PENDING); else templateNA">
+                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.PENDING);">
                                     <button (click)="edit(appointment)" class="ml-2" nbButton outline size="small"
                                         status="info" title="Edit">
                                         <i class="fa fa-edit"></i>
@@ -89,7 +92,17 @@
                                         <i class="fa fa-times-circle"></i>
                                     </button>
                                 </ng-container>
-                                <ng-template #templateNA>N/A</ng-template>
+                                <ng-container
+                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.APPROVED);">
+                                    <button (click)="report(appointment)" class="ml-2" nbButton outline size="small"
+                                        status="primary" title="Appointment Report">
+                                        <i class="fa fa-file-invoice"></i>
+                                    </button>
+                                </ng-container>
+                                <ng-container
+                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.REJECTED);">
+                                    <span>N/A</span>
+                                </ng-container>
                             </td>
                         </tr>
                     </tbody>

@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { FeatureComponent } from './feature.component';
 import { DashboardComponent } from './components';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -11,39 +10,57 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
       },
       {
         path: '',
         redirectTo: 'dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'users',
-        loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
+        loadChildren: () =>
+          import('./modules/user/user.module').then((m) => m.UserModule),
       },
       {
         path: 'departments',
-        loadChildren: () => import('./modules/department/department.module').then(m => m.DepartmentModule)
+        loadChildren: () =>
+          import('./modules/department/department.module').then(
+            (m) => m.DepartmentModule
+          ),
       },
       {
         path: 'inventory',
-        loadChildren: () => import('./modules/inventory/inventory.module').then(m => m.InventoryModule)
+        loadChildren: () =>
+          import('./modules/inventory/inventory.module').then(
+            (m) => m.InventoryModule
+          ),
       },
       {
         path: 'profile',
-        loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
+        loadChildren: () =>
+          import('./modules/profile/profile.module').then(
+            (m) => m.ProfileModule
+          ),
       },
       {
         path: 'appointment',
-        loadChildren: () => import('./modules/appointment/appointment.module').then(m => m.AppointmentModule)
+        loadChildren: () =>
+          import('./modules/appointment/appointment.module').then(
+            (m) => m.AppointmentModule
+          ),
       },
-    ]
-  }
+      {
+        path: 'report',
+        loadChildren: () =>
+          import('./modules/report/report.module').then((m) => m.ReportModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class FeatureRoutingModule { }
+export class FeatureRoutingModule {}

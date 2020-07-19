@@ -1,3 +1,6 @@
+// appointment
+export * from './appointment/appointment-report.service';
+export * from './appointment/appointment.service';
 // department
 export * from './department/department.service';
 // doctor
