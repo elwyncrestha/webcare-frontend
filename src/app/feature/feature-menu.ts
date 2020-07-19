@@ -38,11 +38,11 @@ export const MENU_ITEMS: Map<string, NbMenuItem> = new Map([
           icon: 'person-outline',
           link: '/feature/users/doctor',
         },
-        /* {
-        title: MenuTitle.USER_PATIENT,
-        icon: 'person-outline',
-        link: '/feature/users/patient',
-      }, */
+        {
+          title: MenuTitle.USER_PATIENT,
+          icon: 'person-outline',
+          link: '/feature/users/patient',
+        },
       ],
     },
   ],
