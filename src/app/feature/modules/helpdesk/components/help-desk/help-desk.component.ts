@@ -57,7 +57,7 @@ export class HelpDeskComponent implements OnInit {
 
   public submit(): void {
     this.spinner = true;
-    this.helpDeskService.saveUnauthenticated(this.form.value).subscribe(
+    this.helpDeskService.save(this.form.value).subscribe(
       (response: any) => {
         this.toastService.show(
           new Alert(
