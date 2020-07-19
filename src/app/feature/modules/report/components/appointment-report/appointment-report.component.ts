@@ -66,7 +66,7 @@ export class AppointmentReportComponent implements OnInit {
           new Alert(AlertType.SUCCESS, 'Successfully saved the report')
         );
         this.fetchAppointmentData();
-        this.cardFlipped = false;
+        this.flipCard(false);
       },
       (error) => {
         console.error(error);
