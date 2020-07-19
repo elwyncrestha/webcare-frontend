@@ -1,0 +1,31 @@
+<nb-card [nbSpinner]="spinner">
+  <nb-card-header>
+    {{action}} Patient
+    <button (click)="this.nbDialogRef.close('Modal Closed')" class="float-right" nbButton size="tiny" status="danger"
+      type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <form (ngSubmit)="submit()" [formGroup]="form">
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label for="age">Age</label>
+          <input [ngClass]="{
+                                  'is-invalid': age.invalid && (age.dirty || age.touched),
+                                  'is-valid': age.valid && (age.dirty || age.touched)
+                                  }" class="form-control" formControlName="age" fullWidth id="age" nbInput size="small"
+            type="number">
+          <span class="invalid-feedback" *ngIf="age?.errors?.required">Age is required.</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <hr />
+          <button [disabled]="form.invalid" nbButton size="small" status="success" type="submit"><i
+              class="fas fa-save"></i></button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

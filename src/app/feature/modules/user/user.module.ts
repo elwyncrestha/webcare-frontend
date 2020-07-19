@@ -6,11 +6,12 @@ import { ThemeModule } from 'src/app/@theme/theme.module';
 import { NbDialogModule } from '@nebular/theme';
 import { UserComponent, UserFormComponent, DoctorComponent, PatientComponent } from './components';
 import { DoctorFormComponent } from './components/doctor-form/doctor-form.component';
+import { PatientFormComponent } from './components/patient-form/patient-form.component';
 
 
 
 @NgModule({
-  declarations: [UserComponent, UserFormComponent, DoctorComponent, PatientComponent, DoctorFormComponent],
+  declarations: [UserComponent, UserFormComponent, DoctorComponent, PatientComponent, DoctorFormComponent, PatientFormComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
