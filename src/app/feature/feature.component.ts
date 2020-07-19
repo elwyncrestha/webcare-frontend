@@ -36,6 +36,7 @@ export class FeatureComponent implements OnInit {
           MenuTitle.APPOINTMENT,
         ]);
         break;
+      case EnumUtils.getEnum(UserType, UserType.DOCTOR):
       case EnumUtils.getEnum(UserType, UserType.RECEPTIONIST):
         this.menuPush([MenuTitle.APPOINTMENT]);
         break;

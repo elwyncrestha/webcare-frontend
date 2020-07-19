@@ -1,0 +1,59 @@
+<nb-flip-card [flipped]="cardFlipped" [showToggleButton]="false">
+    <nb-card-front>
+        <nb-card>
+            <nb-card-header *ngIf="appointmentReport">{{appointmentReport?.appointment?.patient?.user?.name}}
+                Appointment Report
+            </nb-card-header>
+            <nb-card-body>
+                <!-- If report unavailable -->
+                <div *ngIf="!appointmentReport" class="d-flex justify-content-center w-100">
+                    <div class="p-5 text-center">
+                        <h5>Report unavailable currently</h5>
+                        <hr />
+                    </div>
+                </div>
+                <!-- If report available -->
+                <div class="report-table-block">
+                    <div [innerHTML]="appointmentReport?.data | safe: 'html'"></div>
+                </div>
+            </nb-card-body>
+            <nb-card-footer>
+                <div class="text-center">
+                    <button (click)="goBack()" class="ml-2" nbButton outline size="tiny" status="primary">
+                        Go Back
+                    </button>
+                    <button *ngIf="isDoctor" (click)="cardFlipped = true" class="ml-2" nbButton outline size="tiny"
+                        status="success">
+                        {{appointmentReport ? 'Edit' : 'Create'}} Report
+                    </button>
+                </div>
+            </nb-card-footer>
+        </nb-card>
+    </nb-card-front>
+    <nb-card-back>
+        <nb-card [nbSpinner]="spinner">
+            <nb-card-header>Create an appointment report</nb-card-header>
+            <nb-card-body>
+                <form (ngSubmit)="submit()" [formGroup]="form">
+                    <div class="row">
+                        <div class="col form-group">
+                            <ckeditor [editor]="editor" formControlName="data"></ckeditor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col form-group">
+                            <button class="ml-2" nbButton outline size="small" status="success" type="submit">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+            <nb-card-footer class="text-center">
+                <button (click)="cardFlipped = false" class="ml-2" nbButton outline size="tiny" status="success">
+                    View the report instead
+                </button>
+            </nb-card-footer>
+        </nb-card>
+    </nb-card-back>
+</nb-flip-card>
