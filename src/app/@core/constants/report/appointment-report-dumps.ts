@@ -1,5 +1,8 @@
-export const AppointmentReportDumps = {
-  report1: `
+import { Appointment } from '../../models';
+
+export class AppointmentReportDumps {
+  public static createReport1(appointment: Appointment) {
+    return `
     <h2>Patient Medical Report</h2><p><strong>This form is to be completed by the respective
   appointment's doctor.</strong></p><h4>Private &amp; Confidential</h4>
 <figure class="table">
@@ -13,9 +16,9 @@ export const AppointmentReportDumps = {
     </thead>
     <tbody>
     <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>${appointment?.patient?.user?.name}</td>
+      <td>${appointment?.patient?.age}</td>
+      <td>${appointment?.patient?.user?.gender}</td>
     </tr>
     </tbody>
   </table>
@@ -123,15 +126,15 @@ export const AppointmentReportDumps = {
     <tbody>
     <tr>
       <th>Doctor Name</th>
-      <td>&nbsp;</td>
+      <td>${appointment?.doctor?.user?.name}</td>
     </tr>
     <tr>
       <th>Doctor Email</th>
-      <td>&nbsp;</td>
+      <td>${appointment?.doctor?.user?.email}</td>
     </tr>
     <tr>
       <th>Doctor Contact Number</th>
-      <td>&nbsp;</td>
+      <td>${appointment?.doctor?.user?.contactNumber}</td>
     </tr>
     <tr>
       <th>Date</th>
@@ -140,5 +143,6 @@ export const AppointmentReportDumps = {
     </tbody>
   </table>
 </figure>
-    `,
-};
+    `;
+  }
+}
