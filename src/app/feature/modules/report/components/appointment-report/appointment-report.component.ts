@@ -5,7 +5,10 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { AppointmentReportService } from 'src/app/@core/services';
+import {
+  AppointmentReportService,
+  AppointmentService,
+} from 'src/app/@core/services';
 import { ActivatedRoute } from '@angular/router';
 import { ToastService } from 'src/app/@theme/services/toast.service';
 import { Alert, AlertType } from 'src/app/@theme/models/alert';
@@ -29,6 +32,7 @@ export class AppointmentReportComponent implements OnInit {
 
   public spinner = false;
   public appointmentReport: AppointmentReport;
+  public appointment: Appointment;
   public isDoctor = false;
   public cardFlipped = false;
   public editor = ClassicEditor;
@@ -41,7 +45,8 @@ export class AppointmentReportComponent implements OnInit {
     private toastService: ToastService,
     private location: Location,
     private formBuilder: FormBuilder,
-    private scrollNavService: ScrollNavService
+    private scrollNavService: ScrollNavService,
+    private appointmentService: AppointmentService
   ) {}
 
   ngOnInit(): void {
@@ -97,7 +102,7 @@ export class AppointmentReportComponent implements OnInit {
       data: [
         ObjectUtils.setInputOrElseNext(
           this.appointmentReport?.data,
-          AppointmentReportDumps.report1
+          AppointmentReportDumps.createReport1(this.appointment)
         ),
       ],
     });
@@ -116,6 +121,18 @@ export class AppointmentReportComponent implements OnInit {
         if (error.status === 404) {
           this.toastService.show(
             new Alert(AlertType.INFO, 'Report has not been created yet')
+          );
+          this.appointmentService.detail(this.appointmentId).subscribe(
+            (response: any) => {
+              this.appointment = response.detail;
+              this.buildForm();
+            },
+            (err) => {
+              console.error(err);
+              this.toastService.show(
+                new Alert(AlertType.ERROR, 'Error loading appointment')
+              );
+            }
           );
         } else {
           console.error(error);
