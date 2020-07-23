@@ -63,6 +63,8 @@ import { CheckEmptyPipe } from './pipes/check-empty.pipe';
 import { TwoButtonConfirmComponent } from './components/two-button-confirm/two-button-confirm.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NotificationAllComponent } from './components/notification-all/notification-all.component';
+import { RouterModule } from '@angular/router';
 
 const NB_MODULES = [
   NbCardModule,
@@ -106,6 +108,7 @@ const OTHER_MODULES = [
   ReactiveFormsModule,
   NgbModule,
   CKEditorModule,
+  RouterModule,
 ];
 
 const COMPONENTS = [
@@ -118,6 +121,7 @@ const COMPONENTS = [
   PaginationComponent,
   TwoButtonConfirmComponent,
   NotificationComponent,
+  NotificationAllComponent,
 ];
 
 const ENTRY_COMPONENTS = [TwoButtonConfirmComponent];
