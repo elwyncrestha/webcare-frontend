@@ -38,6 +38,7 @@
                 <th>Email</th>
                 <th>Contact Number</th>
                 <th>Query/Question</th>
+                <th>Reply</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -48,10 +49,14 @@
                 <td>{{query?.email | checkEmpty}}</td>
                 <td>{{query?.contactNumber | checkEmpty}}</td>
                 <td>{{query?.query | checkEmpty}}</td>
+                <td>{{query?.reply | checkEmpty}}</td>
                 <td>
-                  <button class="ml-2" (click)="reply(query)" nbButton outline size="small" status="success">
+                  <button class="ml-2" (click)="reply(query)" *ngIf="query?.reply===null" nbButton outline size="small"
+                    status="success">
                     <i class="fa fa-paper-plane"></i>
                   </button>
+                  <div class="p-1 mb-2 bg-success text-white" *ngIf="query?.reply!==null">
+                    {{ReplyStatus}}</div>
                 </td>
               </tr>
             </tbody>

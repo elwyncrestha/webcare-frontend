@@ -7,9 +7,21 @@
     </button>
   </nb-card-header>
   <nb-card-body>
-    <form class="text-left" (ngSubmit)="replyQuery()" [formGroup]="form">
+    <form class="text-left" (ngSubmit)="submit()" [formGroup]="form">
       <ng-container>
         <div class="row">
+          <div class="col-md-4 form-group">
+            <input class="form-control" fullWidth formControlName="name" id="name" nbInput placeholder="Enter name"
+              size="small" type="hidden">
+          </div>
+          <div class="col-md-4 form-group">
+            <input class="form-control" fullWidth formControlName="contactNumber" id="contactNumber" nbInput
+              placeholder="Enter Contact Number" size="small" type="hidden">
+          </div>
+          <div class="col-md-4 form-group">
+            <input class="form-control" fullWidth formControlName="query" id="query" nbInput
+              placeholder="Enter your query" size="small" type="hidden">
+          </div>
           <div class="col-md-8 form-group">
             <label for="email">To</label>
             <input [ngClass]="{
@@ -25,7 +37,7 @@
             <textarea nbInput [ngClass]="{
                         'is-invalid': reply.invalid && (reply.dirty || reply.touched),
                         'is-valid': reply.valid && (reply.dirty || reply.touched)
-                        }" fullWidth placeholder="Ask your question here" formControlName="reply" id="reply"
+                        }" fullWidth placeholder="Reply query here" formControlName="reply" id="reply"
               rows="4"></textarea>
             <span class="invalid-feedback" *ngIf="reply.errors?.required">Answer is required</span>
           </div>

@@ -15,8 +15,10 @@ export class HelpDeskService extends BaseService<HelpDesk> {
     super(http);
   }
 
-  public replyQuery(helpDeskQueryId: number) {
-    return `${this.getApi()}/reply?helpDeskQueryId=${helpDeskQueryId}&status=${status}`;
+  public replyQuery(model: HelpDesk): Observable<any> {
+    const api = `${this.getApi()}/reply`;
+    const req = AppUtils.getRequest(api);
+    return this.http.post(req.url, model, { headers: req.header });
   }
 
   protected getApi(): string {

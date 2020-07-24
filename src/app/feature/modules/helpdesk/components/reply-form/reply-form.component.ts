@@ -6,7 +6,11 @@ import { HelpDesk } from 'src/app/@core/models';
 import { Action } from 'src/app/@theme/models/action.enum';
 import { NbDialogRef } from '@nebular/theme';
 import { HelpDeskService } from 'src/app/@core/services/help-desk/help-desk.service';
-import { Router } from '@angular/router';
+import { Alert, AlertType } from 'src/app/@theme/models/alert';
+import {
+  DialogResponse,
+  DialogResponseType,
+} from 'src/app/@theme/models/dialog-response';
 
 @Component({
   selector: 'app-reply-form',
@@ -26,18 +30,24 @@ export class ReplyFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private helpDeskService: HelpDeskService,
     private toastService: ToastService,
-    private router: Router,
     @Optional() public nbDialogRef: NbDialogRef<ReplyFormComponent>
   ) {}
 
   get id() {
     return this.form.get('id');
   }
-
+  get name() {
+    return this.form.get('name');
+  }
+  get contactNumber() {
+    return this.form.get('contactNumber');
+  }
   get email() {
     return this.form.get('email');
   }
-
+  get query() {
+    return this.form.get('query');
+  }
   get reply() {
     return this.form.get('reply');
   }
@@ -46,16 +56,51 @@ export class ReplyFormComponent implements OnInit {
     this.buildForm();
   }
 
-  public replyQuery() {}
+  public submit(): void {
+    this.spinner = true;
+    this.model = this.form.value as HelpDesk;
+    this.helpDeskService.replyQuery(this.model).subscribe(
+      (response: any) => {
+        this.toastService.show(
+          new Alert(
+            AlertType.SUCCESS,
+            `Query ${this.action.toLowerCase()} successful`
+          )
+        );
+        this.spinner = false;
+        this.nbDialogRef.close(
+          new DialogResponse(DialogResponseType.SUCCESS, response)
+        );
+      },
+      (error) => {
+        console.error(error);
+        this.toastService.show(
+          new Alert(
+            AlertType.ERROR,
+            `Failed to ${this.action.toLowerCase()} query`
+          )
+        );
+        this.spinner = false;
+        this.nbDialogRef.close(
+          new DialogResponse(DialogResponseType.ERROR, error)
+        );
+      }
+    );
+  }
 
   private buildForm(): void {
     this.form = this.formBuilder.group({
       id: [ObjectUtils.setUndefinedIfNull(this.model?.id)],
       version: [ObjectUtils.setUndefinedIfNull(this.model?.version)],
+      name: [ObjectUtils.setUndefinedIfNull(this.model?.name)],
+      contactNumber: [
+        ObjectUtils.setUndefinedIfNull(this.model?.contactNumber),
+      ],
       email: [
         ObjectUtils.setUndefinedIfNull(this.model?.email),
         [Validators.required, Validators.email],
       ],
+      query: [ObjectUtils.setUndefinedIfNull(this.model?.query)],
       reply: [
         ObjectUtils.setUndefinedIfNull(this.model?.reply),
         [Validators.required],

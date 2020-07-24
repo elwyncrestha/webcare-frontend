@@ -22,6 +22,7 @@ export class QueryListComponent implements OnInit {
   public pageable: Pageable = new Pageable();
   public page = 1;
   public spinner = false;
+  public ReplyStatus = 'Replied';
   public EnumUtils = EnumUtils;
   private search = {
     name: undefined,
