@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FeatureComponent } from './feature.component';
 import { DashboardComponent } from './components';
-import { NotificationAllComponent } from '../@theme/components/notification-all/notification-all.component';
 
 const routes: Routes = [
   {
@@ -12,10 +11,6 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-      },
-      {
-        path: 'notification',
-        component: NotificationAllComponent,
       },
       {
         path: '',
@@ -61,11 +56,6 @@ const routes: Routes = [
           import('./modules/helpdesk/help-desk.module').then(
             (m) => m.HelpDeskModule
           ),
-      },
-      {
-        path: 'report',
-        loadChildren: () =>
-          import('./modules/report/report.module').then((m) => m.ReportModule),
       },
     ],
   },

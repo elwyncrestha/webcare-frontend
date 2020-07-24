@@ -1,4 +1,5 @@
 // appointment
+export * from './appointment/appointment-report.model';
 export * from './appointment/appointment.model';
 // department
 export * from './department/department.model';

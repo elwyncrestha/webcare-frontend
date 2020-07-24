@@ -56,13 +56,6 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'help-desk',
-        loadChildren: () =>
-          import('./modules/helpdesk/help-desk.module').then(
-            (m) => m.HelpDeskModule
-          ),
-      },
-      {
         path: 'report',
         loadChildren: () =>
           import('./modules/report/report.module').then((m) => m.ReportModule),

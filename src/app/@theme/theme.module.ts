@@ -45,6 +45,7 @@ import {
   PluralPipe,
   RoundPipe,
   TimingPipe,
+  SafePipe,
 } from './pipes';
 import {
   OneColumnLayoutComponent,
@@ -61,6 +62,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CheckEmptyPipe } from './pipes/check-empty.pipe';
 import { TwoButtonConfirmComponent } from './components/two-button-confirm/two-button-confirm.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NotificationAllComponent } from './components/notification-all/notification-all.component';
+import { RouterModule } from '@angular/router';
 
 const NB_MODULES = [
   NbCardModule,
@@ -99,7 +103,13 @@ const NB_MODULES = [
   NbEvaIconsModule,
 ];
 
-const OTHER_MODULES = [FormsModule, ReactiveFormsModule, NgbModule];
+const OTHER_MODULES = [
+  FormsModule,
+  ReactiveFormsModule,
+  NgbModule,
+  CKEditorModule,
+  RouterModule,
+];
 
 const COMPONENTS = [
   HeaderComponent,
@@ -111,6 +121,7 @@ const COMPONENTS = [
   PaginationComponent,
   TwoButtonConfirmComponent,
   NotificationComponent,
+  NotificationAllComponent,
 ];
 
 const ENTRY_COMPONENTS = [TwoButtonConfirmComponent];
@@ -122,6 +133,7 @@ const PIPES = [
   TimingPipe,
   NumberWithCommasPipe,
   CheckEmptyPipe,
+  SafePipe,
 ];
 
 const DIRECTIVES = [];

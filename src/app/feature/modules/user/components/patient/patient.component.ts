@@ -9,6 +9,7 @@ import { PaginationUtils, EnumUtils, ObjectUtils } from 'src/app/@core/utils';
 import { Alert, AlertType } from 'src/app/@theme/models/alert';
 import { Action } from 'src/app/@theme/models/action.enum';
 import { DialogUtils } from 'src/app/@core/utils/dialog/dialog.utils';
+import { PatientFormComponent } from '../patient-form/patient-form.component';
 
 @Component({
   selector: 'app-patient',
@@ -68,14 +69,13 @@ export class PatientComponent implements OnInit {
   }
 
   public edit(patient: Patient): void {
-    // TODO Integrate PatientFormComponent
-    /* const dialogRef = this.dialogService.open(PatientFormComponent, {
+    const dialogRef = this.dialogService.open(PatientFormComponent, {
       context: {
         model: patient,
-        action: Action.UPDATE
-      }
+        action: Action.UPDATE,
+      },
     });
-    DialogUtils.resolve(dialogRef, PatientComponent.loadData, this); */
+    DialogUtils.resolve(dialogRef, PatientComponent.loadData, this);
   }
 
   public onSearch(): void {

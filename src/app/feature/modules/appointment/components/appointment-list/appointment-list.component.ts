@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AppointmentService } from 'src/app/@core/services/appointment/appointment.service';
-import { ToastService } from 'src/app/@theme/services/toast.service';
+import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
-import { Alert, AlertType } from 'src/app/@theme/models/alert';
-import { Appointment, Pageable } from 'src/app/@core/models';
-import { PaginationUtils, ObjectUtils, EnumUtils } from 'src/app/@core/utils';
 import { AppConstant } from 'src/app/@core/constants';
-import { TwoButtonConfirmComponent } from 'src/app/@theme/components';
-import { Gender, AppointmentStatus } from 'src/app/@core/enums';
-import { AppointmentComponent } from '../appointment/appointment.component';
+import { AppointmentStatus, Gender } from 'src/app/@core/enums';
+import { Appointment, Pageable } from 'src/app/@core/models';
+import { AppointmentService } from 'src/app/@core/services';
+import { EnumUtils, ObjectUtils, PaginationUtils } from 'src/app/@core/utils';
 import { DialogUtils } from 'src/app/@core/utils/dialog/dialog.utils';
+import { TwoButtonConfirmComponent } from 'src/app/@theme/components';
 import { Action } from 'src/app/@theme/models/action.enum';
+import { Alert, AlertType } from 'src/app/@theme/models/alert';
 import {
   DialogResponse,
   DialogResponseType,
 } from 'src/app/@theme/models/dialog-response';
+import { ToastService } from 'src/app/@theme/services/toast.service';
+import { AppointmentComponent } from '../appointment/appointment.component';
 
 @Component({
   selector: 'app-appointment-list',
@@ -40,7 +41,8 @@ export class AppointmentListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private appointmentService: AppointmentService,
     private toastService: ToastService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private router: Router
   ) {}
 
   private static loadData(component: AppointmentListComponent) {
@@ -144,6 +146,10 @@ export class AppointmentListComponent implements OnInit {
         }
       }
     });
+  }
+
+  public report(appointment: Appointment) {
+    this.router.navigate([`/feature/report/appointment/${appointment.id}`]);
   }
 
   private buildForm(): void {

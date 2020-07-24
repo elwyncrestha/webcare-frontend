@@ -1,0 +1,16 @@
+<nb-card class="own-scroll">
+    <nb-card-header>
+        All Notifications
+    </nb-card-header>
+    <nb-card-body>
+        <nb-list nbInfiniteList [threshold]="500" (bottomThreshold)="loadData()">
+            <nb-list-item *ngFor="let notification of notifications">
+                <div class="d-flex justify-content-start">
+                    <small>{{notification?.createdAt | date:'medium'}}</small>
+                    &nbsp; | &nbsp;
+                    <strong class="notification-msg">{{notification?.message}}</strong>
+                </div>
+            </nb-list-item>
+        </nb-list>
+    </nb-card-body>
+</nb-card>
