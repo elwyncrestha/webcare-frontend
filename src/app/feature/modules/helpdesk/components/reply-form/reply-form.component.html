@@ -1,0 +1,56 @@
+<nb-card [nbSpinner]="spinner">
+  <nb-card-header>
+    Reply
+    <button (click)="this.nbDialogRef.close('Modal Closed')" class="float-right" nbButton size="tiny" status="danger"
+      type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <form class="text-left" (ngSubmit)="submit()" [formGroup]="form">
+      <ng-container>
+        <div class="row">
+          <div class="col-md-4 form-group">
+            <input class="form-control" fullWidth formControlName="name" id="name" nbInput placeholder="Enter name"
+              size="small" type="hidden">
+          </div>
+          <div class="col-md-4 form-group">
+            <input class="form-control" fullWidth formControlName="contactNumber" id="contactNumber" nbInput
+              placeholder="Enter Contact Number" size="small" type="hidden">
+          </div>
+          <div class="col-md-4 form-group">
+            <input class="form-control" fullWidth formControlName="query" id="query" nbInput
+              placeholder="Enter your query" size="small" type="hidden">
+          </div>
+          <div class="col-md-8 form-group">
+            <label for="email">To</label>
+            <input [ngClass]="{
+                        'is-invalid': email.invalid && (email.dirty || email.touched),
+                        'is-valid': email.valid && (email.dirty || email.touched)
+                        }" class="form-control" fullWidth formControlName="email" id="email" nbInput
+              placeholder="Enter email address" size="small" type="email" disabled>
+            <span class="invalid-feedback" *ngIf="email.errors?.required">Email address is required.</span>
+            <span class="invalid-feedback" *ngIf="email.errors?.email">Email address is invalid.</span>
+          </div>
+          <div class="col-md-12 form-group">
+            <label for="reply">Answer</label>
+            <textarea nbInput [ngClass]="{
+                        'is-invalid': reply.invalid && (reply.dirty || reply.touched),
+                        'is-valid': reply.valid && (reply.dirty || reply.touched)
+                        }" fullWidth placeholder="Reply query here" formControlName="reply" id="reply"
+              rows="4"></textarea>
+            <span class="invalid-feedback" *ngIf="reply.errors?.required">Answer is required</span>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-12">
+            <button [disabled]="form.invalid" nbButton size="small" status="success" type="submit">
+              <i class="fa fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+  </nb-card-body>
+</nb-card>
