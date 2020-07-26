@@ -5,7 +5,7 @@
                 <div class=row>
                     <div class="col-md-12">
                         <button (click)="isFilterCollapsed = !isFilterCollapsed"
-                            [attr.aria-expanded]="!isFilterCollapsed" nbButton status="primary">
+                            [attr.aria-expanded]="!isFilterCollapsed" id="btnFilter" nbButton status="primary">
                             <i class="fa fa-filter"> Filter</i>
                         </button>
                     </div>
@@ -23,7 +23,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button class="mr-2" nbButton status="info" type="submit"
+                                    <button class="mr-2" id="btnFilterSearch" nbButton status="info" type="submit"
                                         size="small">Search</button>
                                     <button (click)="clearSearch()" class="mr-2" nbButton status="danger" type="button"
                                         size="small">Clear
