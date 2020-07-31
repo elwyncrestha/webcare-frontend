@@ -11,5 +11,5 @@ export class AppConstant {
   static APPOINTMENT_REJECT_CONFIRMATION =
     'Are you sure you want to reject the appointment?';
   static FEEDBACK_DELETE_CONFIRMATION =
-    'Aru you sure you want to delete feedback';
+    'Are you sure you want to delete the feedback?';
 }
