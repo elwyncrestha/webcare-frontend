@@ -10,6 +10,7 @@ export class MenuTitle {
   public static INVENTORY = 'Inventory';
   public static APPOINTMENT = 'Appointment';
   public static HELPDESK = 'Help Desk';
+  public static FEEDBACK = 'Feedback';
 }
 
 export const MENU_ITEMS: Map<string, NbMenuItem> = new Map([
@@ -77,6 +78,14 @@ export const MENU_ITEMS: Map<string, NbMenuItem> = new Map([
       title: MenuTitle.HELPDESK,
       icon: 'question-mark-circle-outline',
       link: '/feature/help-desk',
+    },
+  ],
+  [
+    MenuTitle.FEEDBACK,
+    {
+      title: MenuTitle.FEEDBACK,
+      icon: 'clipboard-outline',
+      link: '/feature/feedback-list',
     },
   ],
 ]);

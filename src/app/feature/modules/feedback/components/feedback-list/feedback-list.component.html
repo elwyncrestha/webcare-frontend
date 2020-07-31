@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="box-body">
+          <table class="table table-bordered table-hover text-center">
+            <thead>
+              <tr>
+                <th>S.N</th>
+                <th>Full Name</th>
+                <th>Number Number</th>
+                <th>Email</th>
+                <th>Feedback</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let feedback of feedbackList;let i=index">
+                <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                <td>{{feedback?.fullName | checkEmpty}}</td>
+                <td>{{feedback?.phoneNo | checkEmpty}}</td>
+                <td>{{feedback?.email | checkEmpty}}</td>
+                <td>{{feedback?.message | checkEmpty}}</td>
+                <td>
+                  <button (click)="delete(feedback)" class="ml-2" nbButton outline size="small" status="danger">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <app-spinner *ngIf="spinner" class="d-flex justify-content-center">
+          </app-spinner>
+          <app-pagination (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable">
+          </app-pagination>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
