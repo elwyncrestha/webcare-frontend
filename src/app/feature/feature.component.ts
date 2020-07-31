@@ -35,6 +35,7 @@ export class FeatureComponent implements OnInit {
           MenuTitle.INVENTORY,
           MenuTitle.APPOINTMENT,
           MenuTitle.HELPDESK,
+          MenuTitle.FEEDBACK,
         ]);
         break;
       case EnumUtils.getEnum(UserType, UserType.DOCTOR):
