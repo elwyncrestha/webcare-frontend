@@ -1,49 +1,50 @@
 <div class="row justify-content-center">
-    <div class="col-md-6">
-        <button routerLink="/portal/patient-appointment" nbButton outline fullWidth size="small" status="info"
-            type="button">
-            Get an Apointment
-        </button>
-    </div>
-    <div class="col-md-6">
-        <button routerLink="/portal/user-query" nbButton outline fullWidth size="small" status="info" type="button">
-            Get Help
-        </button>
-    </div>
+  <div class="col-md-6">
+    <button routerLink="/portal/patient-appointment" nbButton outline fullWidth size="small" status="info"
+      type="button">
+      Get an Apointment
+    </button>
+  </div>
+  <div class="col-md-6">
+    <button id="btnGetHelp" routerLink="/portal/user-query" nbButton outline fullWidth size="small" status="info"
+      type="button">
+      Get Help
+    </button>
+  </div>
 </div>
 <hr />
 <div>
-    <form (ngSubmit)="submit()" [formGroup]="form">
-        <div class="alert alert-danger" *ngIf="message">
-            {{message}}
-        </div>
-        <div class="form-group">
-            <label for="username"><strong>Username</strong></label>
-            <input [ngClass]="{
+  <form (ngSubmit)="submit()" [formGroup]="form">
+    <div class="alert alert-danger" *ngIf="message">
+      {{message}}
+    </div>
+    <div class="form-group">
+      <label for="username"><strong>Username</strong></label>
+      <input [ngClass]="{
                                       'is-invalid': username.invalid && (username.dirty || username.touched),
                                       'is-valid': !username.invalid && (username.dirty || username.touched)
                                       }" class="form-control" formControlName="username" fullWidth id="username"
-                nbInput placeholder="Enter username" type="text">
-            <div *ngIf="username.invalid && (username.dirty || username.touched)" class="invalid-feedback text-left">
-                Username is required!
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="password"><strong>Password</strong></label>
-            <input [ngClass]="{
+        nbInput placeholder="Enter username" type="text">
+      <div *ngIf="username.invalid && (username.dirty || username.touched)" class="invalid-feedback text-left">
+        Username is required!
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password"><strong>Password</strong></label>
+      <input [ngClass]="{
                                       'is-invalid': password.invalid && (password.dirty || password.touched),
                                       'is-valid': !password.invalid && (password.dirty || password.touched)
                                       }" class="form-control" fullWidth id="password" formControlName="password"
-                nbInput placeholder="Password" type="password">
-            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback text-left">
-                Password is required!
-            </div>
-            <div class="small">
-                <a routerLink="/forgotPassword">Forgot your password?</a>
-            </div>
-        </div>
+        nbInput placeholder="Password" type="password">
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback text-left">
+        Password is required!
+      </div>
+      <div class="small">
+        <a routerLink="/forgotPassword">Forgot your password?</a>
+      </div>
+    </div>
 
-        <button [disabled]="form.invalid" [nbSpinner]="spinner" nbButton id="btnLogin" status="primary"
-            type="submit">Login</button>
-    </form>
+    <button [disabled]="form.invalid" [nbSpinner]="spinner" nbButton id="btnLogin" status="primary"
+      type="submit">Login</button>
+  </form>
 </div>
