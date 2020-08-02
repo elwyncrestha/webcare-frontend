@@ -6,14 +6,8 @@ import { FeatureComponent } from './feature.component';
 import { ThemeModule } from '../@theme/theme.module';
 import { DashboardComponent } from './components';
 
-
 @NgModule({
   declarations: [FeatureComponent, DashboardComponent],
-  imports: [
-    CommonModule,
-    FeatureRoutingModule,
-    ThemeModule
-  ]
+  imports: [CommonModule, FeatureRoutingModule, ThemeModule],
 })
-export class FeatureModule {
-}
+export class FeatureModule {}
