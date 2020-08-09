@@ -1,117 +1,116 @@
 <div class="row">
-    <div class="col-md-12">
-        <nb-card>
-            <nb-card-header>
-                <!-- TODO: Add appointment filter -->
-                <!-- <div class=row>
-                    <div class="col-md-6">
-                        <button (click)="isFilterCollapsed = !isFilterCollapsed"
-                            [attr.aria-expanded]="!isFilterCollapsed" nbButton status="primary">
-                            <i class="fa fa-filter"> Filter</i>
-                        </button>
-                    </div>
-                </div> -->
-                <div class="row">
-                    <div [hidden]="isFilterCollapsed" class="col-md-12" id="searchModel">
-                        <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
-                            <div class="d-flex py-3 justify-content-start">
-                                <input class="mr-1" fieldSize="medium" formControlName="name" id="name" nbInput
-                                    placeholder="Enter name" type="text">
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="mr-2" nbButton status="info" type="submit"
-                                        size="small">Search</button>
-                                    <button (click)="clearSearch()" class="mr-2" nbButton status="danger" type="button"
-                                        size="small">Clear
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        <div class=row>
+          <div class="col-md-6">
+            <button (click)="isFilterCollapsed = !isFilterCollapsed" [attr.aria-expanded]="!isFilterCollapsed" nbButton
+              status="primary">
+              <i class="fa fa-filter"> Filter</i>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div [hidden]="isFilterCollapsed" class="col-md-12" id="searchModel">
+            <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+              <div class="d-flex py-3 justify-content-start">
+                <input class="mr-1" fieldSize="medium" formControlName="patientId" id="patientId" nbInput
+                  placeholder="Enter patient ID" type="text">
+                <input class="mr-1" fieldSize="medium" formControlName="patientName" id="patientName" nbInput
+                  placeholder="Enter patient name" type="text">
+                <input class="mr-1" fieldSize="medium" formControlName="doctorName" id="doctorName" nbInput
+                  placeholder="Enter doctor name" type="text">
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="mr-2" nbButton status="info" type="submit" size="small">Search</button>
+                  <button (click)="clearSearch()" class="mr-2" nbButton status="danger" type="button" size="small">Clear
+                  </button>
                 </div>
-            </nb-card-header>
-            <nb-card-body>
-                <table class="table table-bordered table-hover text-center">
-                    <thead>
-                        <tr>
-                            <th>S.N</th>
-                            <th>Patient Name</th>
-                            <th>Address</th>
-                            <th>Contact Number</th>
-                            <th>Email</th>
-                            <th>Gender</th>
-                            <th>Age</th>
-                            <th>Department</th>
-                            <th>Doctor</th>
-                            <th>Appointment Date</th>
-                            <th>Apptointment Time</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let appointment of appointmentList;let i=index">
-                            <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                            <td>{{ appointment?.patient?.user?.name | checkEmpty }}</td>
-                            <td>{{ appointment?.patient?.user?.address | checkEmpty }}</td>
-                            <td>{{ appointment?.patient?.user?.contactNumber | checkEmpty }}</td>
-                            <td>{{ appointment?.patient?.user?.email | checkEmpty }}</td>
-                            <td>{{ Gender[appointment?.patient?.user?.gender] | checkEmpty }}</td>
-                            <td>{{ appointment?.patient?.age | checkEmpty }}</td>
-                            <td>{{ appointment?.department?.name | checkEmpty }}</td>
-                            <td>{{ appointment?.doctor?.user?.name | checkEmpty }}</td>
-                            <td>{{ appointment?.appointmentDate | date | checkEmpty }}</td>
-                            <td>{{ appointment?.appointmentTime | checkEmpty }}</td>
-                            <td>
-                                <div class="p-1 mb-2 bg-warning text-white"
-                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.PENDING)">
-                                    {{AppointmentStatus.PENDING}}</div>
-                                <div class="p-1 mb-2 bg-success text-white"
-                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.APPROVED)">
-                                    {{AppointmentStatus.APPROVED}}</div>
-                                <div class="p-1 mb-2 bg-danger text-white"
-                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.REJECTED)">
-                                    {{AppointmentStatus.REJECTED}}</div>
-                            </td>
-                            <td>
-                                <ng-container
-                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.PENDING);">
-                                    <button (click)="edit(appointment)" class="ml-2" nbButton outline size="small"
-                                        status="info" title="Edit">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button (click)="confirmAppointment(appointment.id, AppointmentStatus.APPROVED)"
-                                        class="ml-2" nbButton outline size="small" status="success"
-                                        title="Approve appointment">
-                                        <i class="fa fa-check-circle"></i>
-                                    </button>
-                                    <button (click)="confirmAppointment(appointment.id, AppointmentStatus.REJECTED)"
-                                        class="ml-2" nbButton outline size="small" status="danger"
-                                        title="Reject appointment">
-                                        <i class="fa fa-times-circle"></i>
-                                    </button>
-                                </ng-container>
-                                <ng-container
-                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.APPROVED);">
-                                    <button (click)="report(appointment)" class="ml-2" nbButton outline size="small"
-                                        status="primary" title="Appointment Report">
-                                        <i class="fa fa-file-invoice"></i>
-                                    </button>
-                                </ng-container>
-                                <ng-container
-                                    *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.REJECTED);">
-                                    <span>N/A</span>
-                                </ng-container>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <app-spinner *ngIf="spinner" class="d-flex justify-content-center">
-                </app-spinner>
-                <app-pagination (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable">
-                </app-pagination>
-            </nb-card-body>
-        </nb-card>
-    </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <table class="table table-bordered table-hover text-center">
+          <thead>
+            <tr>
+              <th>S.N</th>
+              <th>Patient Name</th>
+              <th>Address</th>
+              <th>Contact Number</th>
+              <th>Email</th>
+              <th>Gender</th>
+              <th>Age</th>
+              <th>Department</th>
+              <th>Doctor</th>
+              <th>Appointment Date</th>
+              <th>Apptointment Time</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let appointment of appointmentList;let i=index">
+              <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+              <td>{{ appointment?.patient?.user?.name | checkEmpty }}</td>
+              <td>{{ appointment?.patient?.user?.address | checkEmpty }}</td>
+              <td>{{ appointment?.patient?.user?.contactNumber | checkEmpty }}</td>
+              <td>{{ appointment?.patient?.user?.email | checkEmpty }}</td>
+              <td>{{ Gender[appointment?.patient?.user?.gender] | checkEmpty }}</td>
+              <td>{{ appointment?.patient?.age | checkEmpty }}</td>
+              <td>{{ appointment?.department?.name | checkEmpty }}</td>
+              <td>{{ appointment?.doctor?.user?.name | checkEmpty }}</td>
+              <td>{{ appointment?.appointmentDate | date | checkEmpty }}</td>
+              <td>{{ appointment?.appointmentTime | checkEmpty }}</td>
+              <td>
+                <div class="p-1 mb-2 bg-warning text-white"
+                  *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.PENDING)">
+                  {{AppointmentStatus.PENDING}}</div>
+                <div class="p-1 mb-2 bg-success text-white"
+                  *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.APPROVED)">
+                  {{AppointmentStatus.APPROVED}}</div>
+                <div class="p-1 mb-2 bg-danger text-white"
+                  *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.REJECTED)">
+                  {{AppointmentStatus.REJECTED}}</div>
+              </td>
+              <td>
+                <ng-container
+                  *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.PENDING);">
+                  <button (click)="edit(appointment)" class="ml-2" nbButton outline size="small" status="info"
+                    title="Edit">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button (click)="confirmAppointment(appointment.id, AppointmentStatus.APPROVED)" class="ml-2" nbButton
+                    outline size="small" status="success" title="Approve appointment">
+                    <i class="fa fa-check-circle"></i>
+                  </button>
+                  <button (click)="confirmAppointment(appointment.id, AppointmentStatus.REJECTED)" class="ml-2" nbButton
+                    outline size="small" status="danger" title="Reject appointment">
+                    <i class="fa fa-times-circle"></i>
+                  </button>
+                </ng-container>
+                <ng-container
+                  *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.APPROVED);">
+                  <button (click)="report(appointment)" class="ml-2" nbButton outline size="small" status="primary"
+                    title="Appointment Report">
+                    <i class="fa fa-file-invoice"></i>
+                  </button>
+                </ng-container>
+                <ng-container
+                  *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.REJECTED);">
+                  <span>N/A</span>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <app-spinner *ngIf="spinner" class="d-flex justify-content-center">
+        </app-spinner>
+        <app-pagination (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable">
+        </app-pagination>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </div>
