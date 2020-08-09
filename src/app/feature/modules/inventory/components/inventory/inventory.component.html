@@ -1,61 +1,75 @@
 <div class="row">
-    <div class="col-md-12">
-        <nb-card>
-            <nb-card-header>
-                <div class=row>
-                    <div class="col-md-6">
-                        <!-- TODO--filter inventoty items -->
-                        <!-- <button (click)="isFilterCollapsed = !isFilterCollapsed"
-                            [attr.aria-expanded]="!isFilterCollapsed" nbButton status="primary">
-                            <i class="fa fa-filter"> Filter</i>
-                        </button> -->
-                    </div>
-                    <div class="col-md-6 text-right">
-                        <button (click)="add()" class="ml-2" nbButton outline status="success">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        <div class="row">
+          <div class="col-md-6">
+            <button (click)="isFilterCollapsed = !isFilterCollapsed" [attr.aria-expanded]="!isFilterCollapsed" nbButton
+              status="primary">
+              <i class="fa fa-filter"> Filter</i>
+            </button>
+          </div>
+          <div class="col-md-6 text-right">
+            <button (click)="add()" class="ml-2" nbButton outline status="success">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div [hidden]="isFilterCollapsed" class="col-md-12" id="searchModel">
+            <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+              <div class="d-flex py-3 justify-content-start">
+                <input class="mr-1" fieldSize="medium" formControlName="name" id="name" nbInput placeholder="Enter name"
+                  type="text">
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="mr-2" nbButton status="info" type="submit" size="small">Search</button>
+                  <button (click)="clearSearch()" class="mr-2" nbButton status="danger" type="button" size="small">Clear
+                  </button>
                 </div>
-            </nb-card-header>
-            <nb-card-body>
-                <div class="box-body">
-                    <table class="table table-bordered table-hover text-center">
-                        <thead>
-                            <tr>
-                                <th>S.N</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total Price</th>
-                                <th>Purchase Date</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let inventory of inventoryList;let i=index">
-                                <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                                <td>{{inventory?.name | checkEmpty}}</td>
-                                <td> Rs {{inventory?.price | checkEmpty}} /-</td>
-                                <td>{{inventory?.quantity | checkEmpty}} pcs</td>
-                                <td>Rs {{inventory?.totalPrice | checkEmpty}} /-</td>
-                                <td>{{inventory?.purchaseDate | date | checkEmpty}}</td>
-                                <td><button (click)="edit(inventory)" class="ml-2" nbButton outline size="small"
-                                    status="primary">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                <button (click)="delete(inventory)" class="ml-2" nbButton outline size="small"
-                                    status="danger">
-                                    <i class="fa fa-trash"></i>
-                                </button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <app-spinner *ngIf="spinner" class="d-flex justify-content-center">
-                    </app-spinner>
-                    <app-pagination (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable">
-                    </app-pagination>
-                </div>
-            </nb-card-body>
-        </nb-card>
-    </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="box-body">
+          <table class="table table-bordered table-hover text-center">
+            <thead>
+              <tr>
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Purchase Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let inventory of inventoryList;let i=index">
+                <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                <td>{{inventory?.name | checkEmpty}}</td>
+                <td> Rs {{inventory?.price | checkEmpty}} /-</td>
+                <td>{{inventory?.quantity | checkEmpty}} pcs</td>
+                <td>Rs {{inventory?.totalPrice | checkEmpty}} /-</td>
+                <td>{{inventory?.purchaseDate | date | checkEmpty}}</td>
+                <td><button (click)="edit(inventory)" class="ml-2" nbButton outline size="small" status="primary">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button (click)="delete(inventory)" class="ml-2" nbButton outline size="small" status="danger">
+                    <i class="fa fa-trash"></i>
+                  </button></td>
+              </tr>
+            </tbody>
+          </table>
+          <app-spinner *ngIf="spinner" class="d-flex justify-content-center">
+          </app-spinner>
+          <app-pagination (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable">
+          </app-pagination>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </div>
