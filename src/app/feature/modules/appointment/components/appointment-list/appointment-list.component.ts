@@ -34,7 +34,9 @@ export class AppointmentListComponent implements OnInit {
   public AppointmentStatus = AppointmentStatus;
   public EnumUtils = EnumUtils;
   private search = {
-    name: undefined,
+    'patient.id': undefined,
+    'patient.name': undefined,
+    'doctor.name': undefined,
   };
 
   constructor(
@@ -82,8 +84,14 @@ export class AppointmentListComponent implements OnInit {
   }
 
   public onSearch(): void {
-    this.search.name = ObjectUtils.setUndefinedIfNull(
-      this.filterForm.get('name').value
+    this.search['patient.id'] = ObjectUtils.setUndefinedIfNull(
+      this.filterForm.get('patientId').value
+    );
+    this.search['patient.name'] = ObjectUtils.setUndefinedIfNull(
+      this.filterForm.get('patientName').value
+    );
+    this.search['doctor.name'] = ObjectUtils.setUndefinedIfNull(
+      this.filterForm.get('doctorName').value
     );
     AppointmentListComponent.loadData(this);
   }
@@ -154,7 +162,9 @@ export class AppointmentListComponent implements OnInit {
 
   private buildForm(): void {
     this.filterForm = this.formBuilder.group({
-      name: [undefined],
+      patientId: [undefined],
+      patientName: [undefined],
+      doctorName: [undefined],
     });
   }
 }

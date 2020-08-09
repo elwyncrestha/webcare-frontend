@@ -12,12 +12,15 @@ import { Action } from 'src/app/@theme/models/action.enum';
 import { DialogUtils } from 'src/app/@core/utils/dialog/dialog.utils';
 import { TwoButtonConfirmComponent } from 'src/app/@theme/components';
 import { AppConstant } from 'src/app/@core/constants';
-import { DialogResponse, DialogResponseType } from 'src/app/@theme/models/dialog-response';
+import {
+  DialogResponse,
+  DialogResponseType,
+} from 'src/app/@theme/models/dialog-response';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
   public isFilterCollapsed = true;
@@ -38,20 +41,27 @@ export class UserComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private toastService: ToastService,
-    private dialogService: NbDialogService,
-  ) { }
+    private dialogService: NbDialogService
+  ) {}
 
   private static loadData(component: UserComponent) {
     component.spinner = true;
-    component.userService.getPaginationWithSearchObject(component.search, component.page).subscribe((response: any) => {
-      component.userList = response.detail.content;
-      component.pageable = PaginationUtils.getPageable(response.detail);
-      component.spinner = false;
-    }, error => {
-      console.error(error);
-      component.toastService.show(new Alert(AlertType.ERROR, 'Unable to load data!'));
-      component.spinner = false;
-    });
+    component.userService
+      .getPaginationWithSearchObject(component.search, component.page)
+      .subscribe(
+        (response: any) => {
+          component.userList = response.detail.content;
+          component.pageable = PaginationUtils.getPageable(response.detail);
+          component.spinner = false;
+        },
+        (error) => {
+          console.error(error);
+          component.toastService.show(
+            new Alert(AlertType.ERROR, 'Unable to load data!')
+          );
+          component.spinner = false;
+        }
+      );
   }
 
   ngOnInit(): void {
@@ -70,8 +80,8 @@ export class UserComponent implements OnInit {
     const dialogRef = this.dialogService.open(UserFormComponent, {
       context: {
         model: new User(),
-        action: Action.ADD
-      }
+        action: Action.ADD,
+      },
     });
     DialogUtils.resolve(dialogRef, UserComponent.loadData, this);
   }
@@ -80,8 +90,8 @@ export class UserComponent implements OnInit {
     const dialogRef = this.dialogService.open(UserFormComponent, {
       context: {
         model: user,
-        action: Action.UPDATE
-      }
+        action: Action.UPDATE,
+      },
     });
     DialogUtils.resolve(dialogRef, UserComponent.loadData, this);
   }
@@ -92,18 +102,25 @@ export class UserComponent implements OnInit {
         headerText: AppConstant.USER_DELETE_CONFIRMATION,
         btnOneText: AppConstant.YES,
         btnTwoText: AppConstant.NO,
-      }
+      },
     });
     dialogRef.onClose.subscribe((response: DialogResponse) => {
       if (response) {
         if (response.type === DialogResponseType.SUCCESS) {
-          this.userService.delete(user?.id).subscribe(() => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully deleted the user'));
-            UserComponent.loadData(this);
-          }, error => {
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to delete the user'));
-          });
+          this.userService.delete(user?.id).subscribe(
+            () => {
+              this.toastService.show(
+                new Alert(AlertType.SUCCESS, 'Successfully deleted the user')
+              );
+              UserComponent.loadData(this);
+            },
+            (error) => {
+              console.error(error);
+              this.toastService.show(
+                new Alert(AlertType.ERROR, 'Failed to delete the user')
+              );
+            }
+          );
         } else if (response.type === DialogResponseType.DISMISS) {
           console.log(`Modal closed with message: ${response.message}`);
         }
@@ -112,8 +129,12 @@ export class UserComponent implements OnInit {
   }
 
   public onSearch(): void {
-    this.search.name = ObjectUtils.setUndefinedIfNull(this.filterForm.get('name').value);
-    this.search.userType = ObjectUtils.setUndefinedIfNull(this.filterForm.get('userType').value);
+    this.search.name = ObjectUtils.setUndefinedIfNull(
+      this.filterForm.get('name').value
+    );
+    this.search.userType = ObjectUtils.setUndefinedIfNull(
+      this.filterForm.get('userType').value
+    );
     UserComponent.loadData(this);
   }
 
@@ -129,13 +150,22 @@ export class UserComponent implements OnInit {
   }
 
   public statusChange(user: User, value: NbToggleComponent): void {
-    user.status = EnumUtils.getEnum(Status, value.checked ? Status.ACTIVE : Status.INACTIVE);
-    this.userService.changeStatus(user.id, user.status).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated status!!!'));
-    }, error => {
-      console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Could not update status!!!'));
-    });
+    user.status = EnumUtils.getEnum(
+      Status,
+      value.checked ? Status.ACTIVE : Status.INACTIVE
+    );
+    this.userService.changeStatus(user.id, user.status).subscribe(
+      () => {
+        this.toastService.show(
+          new Alert(AlertType.SUCCESS, 'Successfully updated status!!!')
+        );
+      },
+      (error) => {
+        console.error(error);
+        this.toastService.show(
+          new Alert(AlertType.ERROR, 'Could not update status!!!')
+        );
+      }
+    );
   }
-
 }
