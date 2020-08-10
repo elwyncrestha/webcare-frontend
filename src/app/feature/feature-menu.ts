@@ -9,6 +9,7 @@ export class MenuTitle {
   public static DEPARTMENT = 'Department';
   public static INVENTORY = 'Inventory';
   public static APPOINTMENT = 'Appointment';
+  public static PATIENT_APPOINTMENT = 'Appointment';
   public static HELPDESK = 'Help Desk';
   public static FEEDBACK = 'Feedback';
 }
@@ -70,6 +71,15 @@ export const MENU_ITEMS: Map<string, NbMenuItem> = new Map([
       title: MenuTitle.APPOINTMENT,
       icon: 'person-outline',
       link: '/feature/appointment',
+    },
+  ],
+  [
+    MenuTitle.PATIENT_APPOINTMENT,
+    {
+      title: MenuTitle.APPOINTMENT,
+      icon: 'person-outline',
+      link: '/feature/profile',
+      queryParams: { scrollToReport: true },
     },
   ],
   [
