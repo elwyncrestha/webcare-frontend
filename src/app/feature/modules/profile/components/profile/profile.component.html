@@ -1,182 +1,182 @@
 <div class="d-flex justify-content-center">
-    <nb-user size="large" picture="../../../../assets/images/avatar.png" title="Profile Picture" onlyPicture>
-    </nb-user>
+  <nb-user size="large" picture="../../../../assets/images/avatar.png" title="Profile Picture" onlyPicture>
+  </nb-user>
 </div>
 <div class="d-flex justify-content-center">
-    <span class="font-weight-bold">{{user?.name}}</span>
+  <span class="font-weight-bold">{{user?.name}}</span>
 </div>
 <hr class="bg-primary" />
 <div class="row">
-    <div class="col-md-6">
-        <nb-card>
-            <nb-card-header>
-                <span class="font-weight-bold justify-content-center">General Information</span>
-            </nb-card-header>
-            <nb-card-body>
-                <table class="table table-bordered table-hover text-center">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Username</th>
-                            <th>User Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{user?.name | checkEmpty}}</td>
-                            <td>{{user?.username | checkEmpty}}</td>
-                            <td>{{UserType[user?.userType] | checkEmpty}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </nb-card-body>
-        </nb-card>
-    </div>
-    <div class="col-md-6">
-        <nb-card>
-            <nb-card-header>
-                <span class="font-weight-bold justify-content-center">Contact Information</span>
-            </nb-card-header>
-            <nb-card-body>
-                <table class="table table-bordered table-hover text-center">
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Address</th>
-                            <th>Contact Number</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{user?.email | checkEmpty}}</td>
-                            <td>{{user?.address | checkEmpty}}</td>
-                            <td>{{user?.contactNumber | checkEmpty}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </nb-card-body>
-        </nb-card>
-    </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>
+        <span class="font-weight-bold justify-content-center">General Information</span>
+      </nb-card-header>
+      <nb-card-body>
+        <table class="table table-bordered table-hover text-center">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Username</th>
+              <th>User Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{user?.name | checkEmpty}}</td>
+              <td>{{user?.username | checkEmpty}}</td>
+              <td>{{UserType[user?.userType] | checkEmpty}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>
+        <span class="font-weight-bold justify-content-center">Contact Information</span>
+      </nb-card-header>
+      <nb-card-body>
+        <table class="table table-bordered table-hover text-center">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Contact Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{user?.email | checkEmpty}}</td>
+              <td>{{user?.address | checkEmpty}}</td>
+              <td>{{user?.contactNumber | checkEmpty}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </div>
 
 <div class="row" *ngIf="user?.userType === EnumUtils.getEnum(UserType, UserType.DOCTOR)">
-    <div class="col-md-12">
-        <nb-card>
-            <nb-card-header>
-                <span class="font-weight-bold">Detail Information</span>
-            </nb-card-header>
-            <nb-card-body>
-                <div class="box-body">
-                    <table class="table table-bordered table-hover text-center">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Gender</th>
-                                <th>Department</th>
-                                <th>Specialization Field</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{user?.name | checkEmpty}}</td>
-                                <td>{{Gender[user?.gender] | checkEmpty}}</td>
-                                <td>{{doctor?.department?.name | checkEmpty}}</td>
-                                <td>{{doctor?.specializationField | checkEmpty}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </nb-card-body>
-        </nb-card>
-    </div>
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        <span class="font-weight-bold">Detail Information</span>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="box-body">
+          <table class="table table-bordered table-hover text-center">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Department</th>
+                <th>Specialization Field</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{user?.name | checkEmpty}}</td>
+                <td>{{Gender[user?.gender] | checkEmpty}}</td>
+                <td>{{doctor?.department?.name | checkEmpty}}</td>
+                <td>{{doctor?.specializationField | checkEmpty}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </div>
 <ng-container *ngIf="user?.userType === EnumUtils.getEnum(UserType, UserType.PATIENT)">
-    <div class="row">
-        <div class="col-md-12">
-            <nb-card>
-                <nb-card-header>
-                    <span class="font-weight-bold">Detail Information</span>
-                </nb-card-header>
-                <nb-card-body>
-                    <div class="box-body">
-                        <table class="table table-bordered table-hover text-center">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Gender</th>
-                                    <th>Age</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{user?.name | checkEmpty}}</td>
-                                    <td>{{Gender[user?.gender] | checkEmpty}}</td>
-                                    <td>{{patient?.age | checkEmpty}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </nb-card-body>
-            </nb-card>
-        </div>
+  <div class="row">
+    <div class="col-md-12">
+      <nb-card>
+        <nb-card-header>
+          <span class="font-weight-bold">Detail Information</span>
+        </nb-card-header>
+        <nb-card-body>
+          <div class="box-body">
+            <table class="table table-bordered table-hover text-center">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Gender</th>
+                  <th>Age</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{user?.name | checkEmpty}}</td>
+                  <td>{{Gender[user?.gender] | checkEmpty}}</td>
+                  <td>{{patient?.age | checkEmpty}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </nb-card-body>
+      </nb-card>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <nb-card>
-                <nb-card-header>
-                    <span class="font-weight-bold">Appointment Information</span>
-                </nb-card-header>
-                <nb-card-body>
-                    <div class="box-body">
-                        <table class="table table-bordered table-hover text-center">
-                            <thead>
-                                <tr>
-                                    <th>Department</th>
-                                    <th>Doctor</th>
-                                    <th>Appointment Date</th>
-                                    <th>Apptointment Time</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngIf="!patientAppointments || patientAppointments?.length < 1">
-                                    <td colspan="6">No data available</td>
-                                </tr>
-                                <tr *ngFor="let appointment of patientAppointments">
-                                    <td>{{appointment?.department?.name | checkEmpty}}</td>
-                                    <td>{{appointment?.doctor?.user?.name | checkEmpty}}</td>
-                                    <td>{{appointment?.appointmentDate | date | checkEmpty}}</td>
-                                    <td>{{appointment?.appointmentTime | checkEmpty}}</td>
-                                    <td>
-                                        <div class="p-1 mb-2 bg-warning text-white"
-                                            *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.PENDING)">
-                                            {{AppointmentStatus.PENDING}}</div>
-                                        <div class="p-1 mb-2 bg-success text-white"
-                                            *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.APPROVED)">
-                                            {{AppointmentStatus.APPROVED}}</div>
-                                        <div class="p-1 mb-2 bg-danger text-white"
-                                            *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.REJECTED)">
-                                            {{AppointmentStatus.REJECTED}}</div>
-                                    </td>
-                                    <td>
-                                        <ng-container
-                                            *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.APPROVED); else notApplicable">
-                                            <button (click)="report(appointment)" class="ml-2" nbButton outline
-                                                size="small" status="primary" title="Appointment Report">
-                                                <i class="fa fa-file-invoice"></i>
-                                            </button>
-                                        </ng-container>
-                                        <ng-template #notApplicable>
-                                            <span>N/A</span>
-                                        </ng-template>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </nb-card-body>
-            </nb-card>
-        </div>
+  </div>
+  <div #patientAppointmentDiv class="row">
+    <div class="col-md-12">
+      <nb-card>
+        <nb-card-header>
+          <span class="font-weight-bold">Appointment Information</span>
+        </nb-card-header>
+        <nb-card-body>
+          <div class="box-body">
+            <table class="table table-bordered table-hover text-center">
+              <thead>
+                <tr>
+                  <th>Department</th>
+                  <th>Doctor</th>
+                  <th>Appointment Date</th>
+                  <th>Apptointment Time</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="!patientAppointments || patientAppointments?.length < 1">
+                  <td colspan="6">No data available</td>
+                </tr>
+                <tr *ngFor="let appointment of patientAppointments">
+                  <td>{{appointment?.department?.name | checkEmpty}}</td>
+                  <td>{{appointment?.doctor?.user?.name | checkEmpty}}</td>
+                  <td>{{appointment?.appointmentDate | date | checkEmpty}}</td>
+                  <td>{{appointment?.appointmentTime | checkEmpty}}</td>
+                  <td>
+                    <div class="p-1 mb-2 bg-warning text-white"
+                      *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.PENDING)">
+                      {{AppointmentStatus.PENDING}}</div>
+                    <div class="p-1 mb-2 bg-success text-white"
+                      *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.APPROVED)">
+                      {{AppointmentStatus.APPROVED}}</div>
+                    <div class="p-1 mb-2 bg-danger text-white"
+                      *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.REJECTED)">
+                      {{AppointmentStatus.REJECTED}}</div>
+                  </td>
+                  <td>
+                    <ng-container
+                      *ngIf="appointment?.status === EnumUtils.getEnum(AppointmentStatus, AppointmentStatus.APPROVED); else notApplicable">
+                      <button (click)="report(appointment)" class="ml-2" nbButton outline size="small" status="primary"
+                        title="Appointment Report">
+                        <i class="fa fa-file-invoice"></i>
+                      </button>
+                    </ng-container>
+                    <ng-template #notApplicable>
+                      <span>N/A</span>
+                    </ng-template>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </nb-card-body>
+      </nb-card>
     </div>
+  </div>
 </ng-container>

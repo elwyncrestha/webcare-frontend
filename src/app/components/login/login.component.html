@@ -1,21 +1,45 @@
 <div class="row justify-content-center">
   <div class="col-md-4">
-    <button routerLink="/portal/patient-appointment" nbButton outline fullWidth size="small" status="info"
-      type="button">
-      Get an Appointment
-    </button>
+    <nb-card>
+      <nb-card-header>Appointment</nb-card-header>
+      <nb-card-body>
+        <p class="text-left">Book an appointment in your desired time and date.</p>
+      </nb-card-body>
+      <nb-card-footer>
+        <button routerLink="/portal/patient-appointment" nbButton outline fullWidth size="tiny" status="info"
+          type="button">
+          Proceed
+        </button>
+      </nb-card-footer>
+    </nb-card>
   </div>
   <div class="col-md-4">
-    <button id="btnGetHelp" routerLink="/portal/user-query" nbButton outline fullWidth size="small" status="info"
-      type="button">
-      Get Help
-    </button>
+    <nb-card>
+      <nb-card-header>Help Desk</nb-card-header>
+      <nb-card-body>
+        <p class="text-left">Place your query and we will reply you in your mailbox.</p>
+      </nb-card-body>
+      <nb-card-footer>
+        <button id="btnGetHelp" routerLink="/portal/user-query" nbButton outline fullWidth size="tiny" status="info"
+          type="button">
+          Proceed
+        </button>
+      </nb-card-footer>
+    </nb-card>
   </div>
   <div class="col-md-4">
-    <button id="btnFeedback" routerLink="/portal/feedback" nbButton outline fullWidth size="small" status="info"
-      type="button">
-      Feedback
-    </button>
+    <nb-card>
+      <nb-card-header>Feedback</nb-card-header>
+      <nb-card-body>
+        <p class="text-left">Add your feedback regarding this site.</p>
+      </nb-card-body>
+      <nb-card-footer>
+        <button id="btnFeedback" routerLink="/portal/feedback" nbButton outline fullWidth size="tiny" status="info"
+          type="button">
+          Proceed
+        </button>
+      </nb-card-footer>
+    </nb-card>
   </div>
 </div>
 <hr />

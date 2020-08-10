@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import {
   UserService,
   DoctorService,
@@ -6,11 +6,12 @@ import {
   AppointmentService,
 } from 'src/app/@core/services';
 import { User, Doctor, Patient, Appointment } from 'src/app/@core/models';
-import { LocalStorageUtils, EnumUtils } from 'src/app/@core/utils';
+import { LocalStorageUtils, EnumUtils, ObjectUtils } from 'src/app/@core/utils';
 import { UserType, Gender, AppointmentStatus } from 'src/app/@core/enums';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastService } from 'src/app/@theme/services/toast.service';
 import { Alert, AlertType } from 'src/app/@theme/models/alert';
+import { ScrollNavService } from 'src/app/@theme/services/scroll-nav.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +19,9 @@ import { Alert, AlertType } from 'src/app/@theme/models/alert';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('patientAppointmentDiv')
+  private patientAppointmentDiv: ElementRef;
+
   public user: User;
   public doctor: Doctor;
   public patient: Patient;
@@ -26,6 +30,7 @@ export class ProfileComponent implements OnInit {
   public Gender = Gender;
   public patientAppointments: Appointment[];
   public AppointmentStatus = AppointmentStatus;
+  public queueScrollToAppointment = false;
 
   constructor(
     private userService: UserService,
@@ -33,7 +38,9 @@ export class ProfileComponent implements OnInit {
     private patientService: PatientService,
     private router: Router,
     private toastService: ToastService,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private scrollNavService: ScrollNavService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -61,6 +68,12 @@ export class ProfileComponent implements OnInit {
             this.patient = response.detail;
             this.user = this.patient.user;
             this.fetchPatientAppointment(this.patient.id);
+            // scroll to patient appointment report if there is scroll parameter
+            const scrollToReport = this.activatedRoute.snapshot.queryParams
+              .scrollToReport;
+            if (scrollToReport === 'true') {
+              this.scrollToPatientAppointmentReport(this);
+            }
           },
           (error) => {
             console.error(error);
@@ -83,6 +96,24 @@ export class ProfileComponent implements OnInit {
           }
         );
     }
+  }
+
+  private scrollToPatientAppointmentReport(component: ProfileComponent): void {
+    if (
+      ObjectUtils.isEmpty(component.patientAppointmentDiv) &&
+      !component.queueScrollToAppointment
+    ) {
+      component.queueScrollToAppointment = true;
+      setTimeout(
+        () => component.scrollToPatientAppointmentReport(component),
+        500
+      );
+      return;
+    }
+    component.scrollNavService.scrollNavigateTo(
+      component.patientAppointmentDiv
+    );
+    component.queueScrollToAppointment = false;
   }
 
   public report(appointment: Appointment) {
