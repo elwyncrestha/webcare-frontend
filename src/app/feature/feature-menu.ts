@@ -9,7 +9,7 @@ export class MenuTitle {
   public static DEPARTMENT = 'Department';
   public static INVENTORY = 'Inventory';
   public static APPOINTMENT = 'Appointment';
-  public static PATIENT_APPOINTMENT = 'Appointment';
+  public static PATIENT_APPOINTMENT = 'Patient Appointment';
   public static HELPDESK = 'Help Desk';
   public static FEEDBACK = 'Feedback';
 }
